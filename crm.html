@@ -142,6 +142,49 @@ h1 span{color:var(--laranja)}
 .hbar .trilho{height:8px;background:rgba(120,160,200,.12);border-radius:99px;overflow:hidden}
 .hbar .trilho > div{height:100%;border-radius:99px}
 .vazio-msg{color:#4A5160;font-size:.85rem;text-align:center;padding:30px 0}
+
+/* import Meta CSV */
+.btn-meta{background:linear-gradient(135deg, #1877F2, #4285F4);border:none;color:#fff;font-weight:700;font-family:'Inter',sans-serif;border-radius:99px;padding:9px 20px;font-size:.85rem;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+.btn-meta:hover{filter:brightness(1.1)}
+.metabox{background:var(--painel);border:1px solid var(--borda);border-radius:14px;padding:18px;margin-bottom:14px;display:none}
+.metabox.ativo{display:block}
+.metabox .head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:10px}
+.metabox .head h3{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:var(--cinza);display:flex;align-items:center;gap:8px}
+.metabox .head .periodo{font-size:.78rem;color:var(--cinza);background:rgba(24,119,242,.13);border:1px solid rgba(24,119,242,.4);border-radius:99px;padding:4px 12px}
+.metabox .head .limpar{background:transparent;border:1px solid var(--borda);color:var(--cinza);border-radius:99px;padding:6px 14px;font-size:.75rem;cursor:pointer;font-family:'Inter',sans-serif}
+.metabox .head .limpar:hover{border-color:var(--vermelho);color:var(--vermelho)}
+.metakpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.metakpi{background:var(--card);border:1px solid var(--borda);border-radius:10px;padding:13px}
+.metakpi .rot{font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--cinza);margin-bottom:6px}
+.metakpi .num{font-family:'Archivo',sans-serif;font-weight:900;font-size:1.4rem;line-height:1}
+.metakpi .ext{font-size:.7rem;color:var(--cinza);margin-top:5px}
+
+#overlay-import{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;z-index:45;padding:18px}
+#modal-import{width:min(540px,100%);background:#0F1A2A;border:1px solid var(--borda);border-radius:16px;padding:26px;max-height:88vh;overflow-y:auto;position:relative}
+#modal-import h2{font-family:'Archivo',sans-serif;font-size:1.3rem;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+#modal-import .mp{color:var(--cinza);font-size:.88rem;margin-bottom:18px;line-height:1.5}
+.dropzone{border:2px dashed var(--borda);border-radius:14px;padding:32px 18px;text-align:center;cursor:pointer;transition:all .15s;margin-bottom:16px}
+.dropzone:hover, .dropzone.drag{border-color:#1877F2;background:rgba(24,119,242,.06)}
+.dropzone p{color:var(--cinza);font-size:.88rem;margin-top:8px}
+.dropzone .icone{font-size:2.2rem}
+#csv-input{display:none}
+.preview{background:var(--card);border:1px solid var(--borda);border-radius:10px;padding:14px;margin-bottom:16px;font-size:.83rem;display:none}
+.preview.ativo{display:block}
+.preview .ok{color:var(--verde);font-weight:700;margin-bottom:8px}
+.preview .err{color:var(--vermelho);font-weight:700;margin-bottom:8px}
+.preview .det{color:var(--cinza);line-height:1.7}
+.preview .det b{color:#fff}
+.import-botoes{display:flex;gap:10px}
+.import-botoes button{flex:1;border-radius:99px;padding:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;font-size:.9rem;border:none}
+.btn-cancel{background:transparent;border:1px solid var(--borda) !important;color:var(--cinza)}
+.btn-importar{background:linear-gradient(135deg, #1877F2, #4285F4);color:#fff;font-family:'Archivo',sans-serif !important;font-weight:800 !important}
+.btn-importar:disabled{opacity:.4;cursor:not-allowed}
+.como-baixar{background:rgba(24,119,242,.06);border:1px solid rgba(24,119,242,.3);border-radius:10px;padding:14px;margin-bottom:16px;font-size:.82rem;color:var(--cinza);line-height:1.6}
+.como-baixar b{color:#fff}
+.como-baixar summary{cursor:pointer;color:#fff;font-weight:600;margin-bottom:6px}
+.como-baixar ol{margin:8px 0 0 18px}
+.como-baixar li{margin-bottom:5px}
+
 @media(max-width:640px){header{padding:20px 16px 0}.abas{padding:12px 16px 0}#board{padding:16px 16px 30px}.col{min-width:248px;width:248px}#vista-dash main{padding:16px 16px 40px}}
 </style>
 </head>
@@ -190,6 +233,24 @@ h1 span{color:var(--laranja)}
     <div class="datas">
       <input type="date" id="d-ini"> <span>até</span> <input type="date" id="d-fim">
       <button class="chip" onclick="aplicarPersonalizado()">Aplicar</button>
+      <button class="btn-meta" onclick="abrirImport()">📊 Importar dados Meta Ads</button>
+    </div>
+  </div>
+
+  <div class="metabox" id="metabox">
+    <div class="head">
+      <h3>📊 Dados do Meta Ads <span class="periodo" id="meta-periodo"></span></h3>
+      <button class="limpar" onclick="limparMeta()">Limpar dados</button>
+    </div>
+    <div class="metakpis">
+      <div class="metakpi"><p class="rot">Investido</p><p class="num" id="m-gasto" style="color:#1877F2">—</p><p class="ext" id="m-gasto-ext"></p></div>
+      <div class="metakpi"><p class="rot">Impressões</p><p class="num" id="m-imp" style="color:var(--cinza)">—</p></div>
+      <div class="metakpi"><p class="rot">Cliques</p><p class="num" id="m-cliques" style="color:var(--cinza)">—</p></div>
+      <div class="metakpi"><p class="rot">CTR</p><p class="num" id="m-ctr" style="color:var(--ouro)">—</p><p class="ext">cliques ÷ impressões</p></div>
+      <div class="metakpi"><p class="rot">CPC</p><p class="num" id="m-cpc" style="color:var(--ouro)">—</p><p class="ext">custo por clique</p></div>
+      <div class="metakpi"><p class="rot">CPL real (Meta)</p><p class="num" id="m-cpl" style="color:var(--verde)">—</p><p class="ext">investido ÷ leads do CRM</p></div>
+      <div class="metakpi"><p class="rot">CPLQ (qualificado)</p><p class="num" id="m-cplq" style="color:var(--verde)">—</p><p class="ext">investido ÷ qualificados</p></div>
+      <div class="metakpi"><p class="rot">Clique → Lead</p><p class="num" id="m-conv" style="color:var(--laranja)">—</p><p class="ext">taxa de conversão</p></div>
     </div>
   </div>
 
@@ -248,6 +309,41 @@ h1 span{color:var(--laranja)}
   </div>
 </div>
 
+
+<div id="overlay-import" onclick="if(event.target===this)fecharImport()">
+  <div id="modal-import">
+    <button class="fechar" onclick="fecharImport()">✕</button>
+    <h2>📊 Importar dados do Meta Ads</h2>
+    <p class="mp">Baixe o relatório do Meta Ads e arraste o arquivo CSV aqui. O sistema vai cruzar com os leads do CRM no mesmo período e calcular CPL, CPC, CTR e taxa de conversão automaticamente.</p>
+
+    <details class="como-baixar">
+      <summary>📥 Como baixar o CSV no Meta Ads (clique pra abrir)</summary>
+      <ol>
+        <li>Entre no <b>Gerenciador de Anúncios</b> (adsmanager.facebook.com)</li>
+        <li>Selecione o período desejado no canto superior direito</li>
+        <li>Clique em <b>"Relatórios"</b> → <b>"Exportar dados da tabela"</b></li>
+        <li>Escolha <b>CSV (.csv)</b> e clique em Exportar</li>
+        <li>Volte aqui e arraste o arquivo baixado</li>
+      </ol>
+      <p style="margin-top:8px"><b>Dica:</b> O importador detecta automaticamente colunas em PT-BR e EN-US.</p>
+    </details>
+
+    <label class="dropzone" id="dropzone" for="csv-input">
+      <div class="icone">📁</div>
+      <p><b style="color:#fff">Clique para escolher</b> ou arraste o CSV aqui</p>
+      <p style="font-size:.75rem;margin-top:4px">Formatos aceitos: .csv</p>
+    </label>
+    <input type="file" id="csv-input" accept=".csv,text/csv">
+
+    <div class="preview" id="preview"></div>
+
+    <div class="import-botoes">
+      <button class="btn-cancel" onclick="fecharImport()">Cancelar</button>
+      <button class="btn-importar" id="btn-importar" disabled onclick="confirmarImport()">Importar dados</button>
+    </div>
+  </div>
+</div>
+
 <div id="overlay" onclick="if(event.target===this)fecharModal()">
   <div id="modal"></div>
 </div>
@@ -258,7 +354,7 @@ h1 span{color:var(--laranja)}
    Vazio ("") = MODO DEMO (lê leads salvos neste navegador). */
 const SUPABASE_URL  = "https://mztmbhrtsczdwxahxrdk.supabase.co";
 const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im16dG1iaHJ0c2N6ZHd4YWh4cmRrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExODEzMzAsImV4cCI6MjA5Njc1NzMzMH0.X0JVNJ_4sKmL48gtM-rzYKtN6zf0Op-n5syfU7MXYEA";
-const SENHA_ACESSO  = "wm2026";   // ← troque a senha do painel
+const SENHA_ACESSO  = "wm@adm2026";
 /* ═══════════════════════════════════════════════ */
 
 const COLUNAS = [
@@ -508,6 +604,222 @@ document.querySelectorAll('.chip[data-dias]').forEach(c=>{
   });
 });
 
+
+/* ════════ META ADS — Import CSV ════════ */
+let metaPreview = null;
+
+function abrirImport(){
+  document.getElementById('overlay-import').style.display='flex';
+  document.getElementById('csv-input').value='';
+  document.getElementById('preview').className='preview';
+  document.getElementById('preview').innerHTML='';
+  document.getElementById('btn-importar').disabled = true;
+  metaPreview = null;
+}
+function fecharImport(){
+  document.getElementById('overlay-import').style.display='none';
+}
+
+document.getElementById('csv-input').addEventListener('change', e => processarArquivo(e.target.files[0]));
+const dz = document.getElementById('dropzone');
+dz.addEventListener('dragover', e=>{ e.preventDefault(); dz.classList.add('drag'); });
+dz.addEventListener('dragleave', ()=> dz.classList.remove('drag'));
+dz.addEventListener('drop', e=>{
+  e.preventDefault(); dz.classList.remove('drag');
+  if(e.dataTransfer.files.length) processarArquivo(e.dataTransfer.files[0]);
+});
+
+function parseCSV(texto){
+  // detecta separador (vírgula ou ponto-vírgula)
+  const linha1 = texto.split('\n')[0];
+  const sep = (linha1.match(/;/g)||[]).length > (linha1.match(/,/g)||[]).length ? ';' : ',';
+  const linhas = texto.replace(/^\uFEFF/,'').split(/\r?\n/).filter(l=>l.trim());
+  const parse = l => {
+    const r = []; let cur=''; let dent=false;
+    for(let i=0;i<l.length;i++){
+      const c = l[i];
+      if(c==='"'){ if(dent && l[i+1]==='"'){ cur+='"'; i++; } else dent=!dent; }
+      else if(c===sep && !dent){ r.push(cur); cur=''; }
+      else cur+=c;
+    }
+    r.push(cur);
+    return r;
+  };
+  const cab = parse(linhas[0]).map(s=>s.trim().toLowerCase());
+  return linhas.slice(1).map(l=>{
+    const v = parse(l);
+    const o = {};
+    cab.forEach((k,i)=> o[k]=(v[i]||'').trim());
+    return o;
+  });
+}
+
+function numero(s){
+  if(!s) return 0;
+  // aceita "1.234,56" e "1,234.56"
+  let v = String(s).replace(/[^\d,.\-]/g,'').trim();
+  if(v.includes(',') && v.includes('.')){
+    if(v.lastIndexOf(',') > v.lastIndexOf('.')) v = v.replace(/\./g,'').replace(',','.');
+    else v = v.replace(/,/g,'');
+  } else if(v.includes(',')){
+    v = v.replace(',','.');
+  }
+  const n = parseFloat(v);
+  return isNaN(n) ? 0 : n;
+}
+
+// mapeamento de nomes de coluna PT/EN do Meta Ads
+const COLS = {
+  gasto:        ['valor usado (brl)','valor gasto (brl)','valor usado','valor gasto','amount spent (brl)','amount spent','spend'],
+  impressoes:   ['impressões','impressoes','impressions'],
+  cliques:      ['cliques (todos)','cliques','clicks (all)','clicks','link clicks'],
+  data_ini:     ['início dos relatórios','inicio dos relatorios','reporting starts','date start','dia'],
+  data_fim:     ['término dos relatórios','termino dos relatorios','reporting ends','date stop'],
+  ctr:          ['ctr (todos)','ctr','ctr (all)'],
+  cpc:          ['cpc (todos)','cpc','cpc (all)']
+};
+function acharCol(linha, possiveis){
+  for(const p of possiveis) if(linha[p] !== undefined) return p;
+  // fuzzy: procura uma chave que contenha o nome
+  for(const p of possiveis){
+    const k = Object.keys(linha).find(k => k.replace(/[^a-z]/g,'').includes(p.replace(/[^a-z]/g,'')));
+    if(k) return k;
+  }
+  return null;
+}
+
+function processarArquivo(file){
+  if(!file) return;
+  const prev = document.getElementById('preview');
+  prev.className='preview ativo';
+  prev.innerHTML = '<p class="det">⏳ Lendo arquivo...</p>';
+  const r = new FileReader();
+  r.onload = () => {
+    try{
+      const dados = parseCSV(r.result);
+      if(!dados.length) throw new Error('CSV vazio ou sem linhas de dados');
+      const am = dados[0];
+      const cG = acharCol(am, COLS.gasto);
+      const cI = acharCol(am, COLS.impressoes);
+      const cC = acharCol(am, COLS.cliques);
+      const cDi = acharCol(am, COLS.data_ini);
+      const cDf = acharCol(am, COLS.data_fim);
+      if(!cG) throw new Error('Não encontrei a coluna de "Valor gasto". Confira se exportou as colunas certas no Meta.');
+
+      // soma os valores de todas as linhas (cada linha pode ser uma campanha/conjunto/anúncio)
+      let gasto=0, imp=0, cli=0;
+      let dataIni = null, dataFim = null;
+      dados.forEach(l=>{
+        gasto += numero(l[cG]);
+        if(cI) imp += numero(l[cI]);
+        if(cC) cli += numero(l[cC]);
+        if(cDi && l[cDi]){
+          const d = parseData(l[cDi]);
+          if(d && (!dataIni || d < dataIni)) dataIni = d;
+        }
+        if(cDf && l[cDf]){
+          const d = parseData(l[cDf]);
+          if(d && (!dataFim || d > dataFim)) dataFim = d;
+        }
+      });
+
+      metaPreview = {
+        gasto, impressoes:imp, cliques:cli,
+        data_ini: dataIni ? dataIni.toISOString() : null,
+        data_fim: dataFim ? dataFim.toISOString() : null,
+        linhas: dados.length,
+        importado_em: new Date().toISOString()
+      };
+
+      prev.innerHTML = `
+        <p class="ok">✓ Arquivo lido com sucesso</p>
+        <div class="det">
+          <b>${dados.length}</b> ${dados.length===1?'linha lida':'linhas lidas'}<br>
+          Total investido: <b>${brl(gasto)}</b><br>
+          ${imp?`Impressões: <b>${imp.toLocaleString('pt-BR')}</b><br>`:''}
+          ${cli?`Cliques: <b>${cli.toLocaleString('pt-BR')}</b><br>`:''}
+          ${dataIni?`Período: <b>${dataIni.toLocaleDateString('pt-BR')} a ${(dataFim||dataIni).toLocaleDateString('pt-BR')}</b>`:'<i>Período não detectado — vai usar o filtro atual do Dashboard</i>'}
+        </div>`;
+      document.getElementById('btn-importar').disabled = false;
+    }catch(e){
+      prev.innerHTML = `<p class="err">✗ Erro ao ler o arquivo</p><div class="det">${e.message}</div>`;
+      document.getElementById('btn-importar').disabled = true;
+    }
+  };
+  r.readAsText(file, 'UTF-8');
+}
+
+function parseData(s){
+  if(!s) return null;
+  // tenta DD/MM/AAAA, AAAA-MM-DD, MM/DD/AAAA
+  const m1 = s.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})$/);
+  if(m1){
+    const a=Number(m1[3]<100?2000+Number(m1[3]):m1[3]);
+    // BR padrão: dia/mês
+    if(Number(m1[1])>12) return new Date(a, Number(m1[2])-1, Number(m1[1]));
+    return new Date(a, Number(m1[2])-1, Number(m1[1]));
+  }
+  const m2 = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if(m2) return new Date(Number(m2[1]), Number(m2[2])-1, Number(m2[3]));
+  return null;
+}
+
+function confirmarImport(){
+  if(!metaPreview) return;
+  localStorage.setItem('wm_meta_dados', JSON.stringify(metaPreview));
+  fecharImport();
+  renderMeta();
+}
+
+function limparMeta(){
+  if(!confirm('Remover dados do Meta importados?')) return;
+  localStorage.removeItem('wm_meta_dados');
+  renderMeta();
+}
+
+function renderMeta(){
+  const raw = localStorage.getItem('wm_meta_dados');
+  const box = document.getElementById('metabox');
+  if(!raw){ box.classList.remove('ativo'); return; }
+  const m = JSON.parse(raw);
+  box.classList.add('ativo');
+
+  // se o CSV tem datas, filtra leads pelo período do CSV; senão usa o filtro atual
+  let fl;
+  if(m.data_ini && m.data_fim){
+    const di = new Date(m.data_ini), df = new Date(m.data_fim);
+    df.setHours(23,59,59,999);
+    fl = leads.filter(l=>{
+      if(!l.created_at) return false;
+      const d = new Date(l.created_at);
+      return d >= di && d <= df;
+    });
+    document.getElementById('meta-periodo').textContent =
+      `${di.toLocaleDateString('pt-BR')} a ${df.toLocaleDateString('pt-BR')}`;
+  } else {
+    const [ini, fim] = periodo();
+    fl = leads.filter(l=>{
+      if(!l.created_at) return true;
+      const d = new Date(l.created_at);
+      return (!ini || d >= ini) && (!fim || d <= fim);
+    });
+    document.getElementById('meta-periodo').textContent = '(usando filtro do Dashboard)';
+  }
+
+  const total = fl.length;
+  const qual = fl.filter(l=>l.qualificado).length;
+
+  document.getElementById('m-gasto').textContent = brl(m.gasto);
+  document.getElementById('m-gasto-ext').textContent = `${m.linhas} ${m.linhas===1?'linha':'linhas'} do CSV`;
+  document.getElementById('m-imp').textContent = m.impressoes ? m.impressoes.toLocaleString('pt-BR') : '—';
+  document.getElementById('m-cliques').textContent = m.cliques ? m.cliques.toLocaleString('pt-BR') : '—';
+  document.getElementById('m-ctr').textContent = (m.impressoes && m.cliques) ? (m.cliques/m.impressoes*100).toFixed(2)+'%' : '—';
+  document.getElementById('m-cpc').textContent = (m.cliques && m.gasto) ? brl(m.gasto/m.cliques) : '—';
+  document.getElementById('m-cpl').textContent = (total && m.gasto) ? brl(m.gasto/total) : (total ? 'R$ 0,00' : '—');
+  document.getElementById('m-cplq').textContent = (qual && m.gasto) ? brl(m.gasto/qual) : (qual ? 'R$ 0,00' : '—');
+  document.getElementById('m-conv').textContent = (m.cliques && total) ? (total/m.cliques*100).toFixed(2)+'%' : '—';
+}
+
 function renderDash(){
   const [ini, fim] = periodo();
   const fl = leads.filter(l=>{
@@ -533,6 +845,7 @@ function renderDash(){
   desenharCidades(fl);
   desenharStatus(fl);
   desenharMotivos(fl);
+  renderMeta();
 }
 
 function calcCPL(total, qual){
