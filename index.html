@@ -223,7 +223,7 @@ footer{padding:18px 0 26px;text-align:center;font-size:.78rem;color:#52677F}
     <div class="etapa" data-campo="whatsapp" data-rotulo="WhatsApp">
       <p class="pergunta" id="perg-zap">Qual seu WhatsApp?</p>
       <p class="dica">É por onde enviamos sua proposta e a confirmação da visita.</p>
-      <input type="tel" id="in-whatsapp" placeholder="(44) 99999-9999" inputmode="numeric" autocomplete="tel">
+      <input type="tel" id="in-whatsapp" placeholder="(44) 99999-9999" inputmode="numeric" autocomplete="off">
       <p class="abaixo-input">Usado apenas para enviar seu orçamento.</p>
       <div class="botoes"><button class="voltar" onclick="voltar()">←</button><button class="btn-ouro" disabled onclick="avancar()">Continuar →</button></div>
     </div>
@@ -338,37 +338,82 @@ const brl = n => 'R$ ' + Math.round(n).toLocaleString('pt-BR');
 const demo = !SUPABASE_URL;
 const H = () => ({ 'apikey': SUPABASE_ANON, 'Authorization': 'Bearer ' + SUPABASE_ANON, 'Content-Type': 'application/json' });
 
+function salvarLocalBackup(dados) {
+  try {
+    const db = JSON.parse(localStorage.getItem('wm_leads_backup') || '[]');
+    const idx = db.findIndex(l => l.id === dados.id);
+    if (idx > -1) { db[idx] = { ...db[idx], ...dados }; }
+    else { db.unshift(dados); }
+    localStorage.setItem('wm_leads_backup', JSON.stringify(db));
+  } catch(e) {}
+}
+
 async function criarLead(dados) {
+  // Sempre salva backup local primeiro
+  const backupId = 'local-' + Date.now();
+  const dadosLimpos = { ...dados };
+  // Remove campos booleanos que podem quebrar schema antigo
+  delete dadosLimpos.qualificado;
+  
   if (demo) {
-    leadId = 'demo-' + Date.now();
-    const db = JSON.parse(localStorage.getItem('wm_leads') || '[]');
-    db.unshift({ id: leadId, created_at: new Date().toISOString(), ...dados });
-    localStorage.setItem('wm_leads', JSON.stringify(db));
+    leadId = backupId;
+    salvarLocalBackup({ id: leadId, created_at: new Date().toISOString(), ...dadosLimpos });
     return;
   }
   try {
     const r = await fetch(SUPABASE_URL + '/rest/v1/leads', {
       method: 'POST', headers: { ...H(), 'Prefer': 'return=representation' },
-      body: JSON.stringify(dados)
+      body: JSON.stringify(mapearCampos(dadosLimpos))
     });
+    if (!r.ok) {
+      const err = await r.text();
+      console.warn('Supabase erro ao criar:', err);
+      leadId = backupId;
+      salvarLocalBackup({ id: leadId, created_at: new Date().toISOString(), ...dadosLimpos });
+      return;
+    }
     const j = await r.json();
-    leadId = j[0]?.id || null;
-  } catch (e) { console.error('Erro ao criar lead:', e); }
+    leadId = j[0]?.id || backupId;
+    salvarLocalBackup({ id: leadId, created_at: new Date().toISOString(), ...dadosLimpos });
+  } catch (e) {
+    console.warn('Supabase indisponível, salvando local:', e.message);
+    leadId = backupId;
+    salvarLocalBackup({ id: leadId, created_at: new Date().toISOString(), ...dadosLimpos });
+  }
 }
 
 async function atualizarLead(dados) {
   if (!leadId) return;
-  if (demo) {
-    const db = JSON.parse(localStorage.getItem('wm_leads') || '[]');
-    const i = db.findIndex(l => l.id === leadId);
-    if (i > -1) { db[i] = { ...db[i], ...dados }; localStorage.setItem('wm_leads', JSON.stringify(db)); }
-    return;
-  }
+  salvarLocalBackup({ id: leadId, ...dados });
+  if (demo || leadId.startsWith('local-')) return;
   try {
-    await fetch(`${SUPABASE_URL}/rest/v1/leads?id=eq.${leadId}`, {
-      method: 'PATCH', headers: H(), body: JSON.stringify(dados)
+    const r = await fetch(`${SUPABASE_URL}/rest/v1/leads?id=eq.${leadId}`, {
+      method: 'PATCH', headers: H(), body: JSON.stringify(mapearCampos(dados))
     });
-  } catch (e) { console.error('Erro ao atualizar lead:', e); }
+    if (!r.ok) console.warn('Supabase erro ao atualizar:', await r.text());
+  } catch (e) { console.warn('Supabase indisponível no update:', e.message); }
+}
+
+// Mapeia nomes internos do quiz → colunas reais da tabela Supabase
+function mapearCampos(dados) {
+  const mapa = {
+    conta_luz:       'conta_luz',
+    aparelhos:       'aparelhos',
+    nome:            'nome',
+    whatsapp:        'whatsapp',
+    cidade:          'cidade',
+    forma_pagamento: 'forma_pagamento',
+    prazo:           'prazo',
+    dia_visita:      'dia_visita',
+    periodo_visita:  'periodo_visita',
+    status:          'status',
+  };
+  const out = {};
+  for (const [k, v] of Object.entries(dados)) {
+    const col = mapa[k] || k;
+    out[col] = v;
+  }
+  return out;
 }
 
 /* ---------- FLUXO ---------- */
@@ -466,7 +511,18 @@ async function finalizar() {
     .filter(l => l[1])
     .map(l => `<div class="r-linha"><span class="k">${l[0]}</span><span class="v">${l[1]}</span></div>`).join('');
 
-  const msg = encodeURIComponent(`Olá! Acabei de fazer meu orçamento no site da WM Energia Solar. Meu nome é ${lead.nome}.`);
+  const linhasMsg = [
+    `👤 *Nome:* ${lead.nome || '-'}`,
+    `📱 *WhatsApp:* ${lead.whatsapp || '-'}`,
+    `🏙️ *Cidade:* ${lead.cidade || '-'}`,
+    `⚡ *Conta mensal:* ${lead.conta_luz || '-'}`,
+    `🔌 *Aumento de consumo:* ${lead.aparelhos || '-'}`,
+    `💳 *Pagamento:* ${lead.forma_pagamento || '-'}`,
+    `📅 *Prazo:* ${lead.prazo || '-'}`,
+    `🗓️ *Melhor dia:* ${lead.dia_visita || '-'}`,
+    `🕐 *Melhor horário:* ${lead.periodo_visita || '-'}`,
+  ].join('\n');
+  const msg = encodeURIComponent(`Olá! Preenchi o orçamento no site da WM Energia Solar. Seguem meus dados:\n\n${linhasMsg}`);
   document.getElementById('link-zap').href = `https://wa.me/${WHATSAPP_WM}?text=${msg}`;
 }
 
@@ -487,7 +543,10 @@ etapas.forEach(et => {
 
   if (campo === 'whatsapp' && input) {
     input.addEventListener('input', () => {
-      let v = input.value.replace(/\D/g, '').slice(0, 11);
+      let v = input.value.replace(/\D/g, '');
+      // Remove prefixo 55 (Brasil) se digitado antes do DDD
+      if (v.startsWith('55') && v.length > 11) v = v.slice(2);
+      v = v.slice(0, 11);
       if (v.length > 6) v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
       else if (v.length > 2) v = `(${v.slice(0,2)}) ${v.slice(2)}`;
       input.value = v;
