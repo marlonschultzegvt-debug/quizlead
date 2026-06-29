@@ -85,6 +85,12 @@ h1 span{color:var(--laranja)}
 .linha .k{color:var(--cinza)}
 .linha .v{text-align:right;font-weight:500}
 .fechar{position:absolute;top:14px;right:18px;background:none;border:none;color:var(--cinza);font-size:1.3rem;cursor:pointer}
+/* campo vendedor */
+.v-wrap{margin-bottom:20px}
+.v-label{font-size:.75rem;color:var(--cinza);margin-bottom:6px}
+.v-input{width:100%;background:var(--card2);border:1.5px solid var(--borda);border-radius:10px;padding:12px 14px;color:#fff;font-size:.9rem;font-family:'Inter',sans-serif;outline:none;transition:border-color .15s}
+.v-input:focus{border-color:var(--ouro)}
+.v-salvo{font-size:.72rem;color:var(--verde);margin-top:5px;display:none}
 
 /* modal de motivo da perda */
 #overlay-motivo{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;z-index:45;padding:18px}
@@ -293,6 +299,7 @@ h1 span{color:var(--laranja)}
     <div class="painel"><h3>Status na pipeline</h3><div id="statusbars"></div></div>
     <div class="painel"><h3>Motivos de perda</h3><div id="motivos-dash"></div></div>
   </div>
+  <div class="painel"><h3>Leads por vendedor</h3><div id="vendedores-dash"></div></div>
 </main>
 </section>
 
@@ -479,6 +486,7 @@ function cardHTML(l){
     (l.dia_visita||l.periodo_visita) ? `📅 Visita: ${esc(l.dia_visita||'')} ${esc(l.periodo_visita||'')}` : '',
     l.aparelhos       ? `⚡ ${esc(l.aparelhos)}` : '',
     (l.status==='Perdido' && l.motivo_perda) ? `<span style="color:var(--vermelho)">❌ ${esc(l.motivo_perda)}</span>` : '',
+    l.vendedor        ? `👤 <b style="color:var(--ouro)">${esc(l.vendedor)}</b>` : '',
   ].filter(Boolean).join('<br>');
   return `
   <div class="lead" data-id="${esc(l.id)}">
@@ -499,7 +507,7 @@ function cardHTML(l){
 function abrirModal(id){
   const l = leads.find(x=>String(x.id)===String(id)); if(!l) return;
   const campos = [
-    ['Nome', l.nome], ['WhatsApp', l.whatsapp], ['Conta de luz', l.conta_luz],
+    ['Nome', l.nome], ['WhatsApp', l.whatsapp], ['Vendedor', l.vendedor], ['Conta de luz', l.conta_luz],
     ['Aparelhos/aumento de consumo', l.aparelhos], ['Cidade', l.cidade],
     ['Forma de pagamento', l.forma_pagamento], ['Prazo', l.prazo],
     ['Dia da visita', l.dia_visita], ['Período da visita', l.periodo_visita],
@@ -519,6 +527,11 @@ function abrirModal(id){
     <select onchange="mudarStatus('${esc(l.id)}', this.value); fecharModal()">
       ${COLUNAS.map(c=>`<option ${ (l.status||'Novo lead')===c.nome?'selected':'' }>${c.nome}</option>`).join('')}
     </select>
+    <div class="v-wrap">
+      <p class="m-label">Vendedor responsável</p>
+      <input class="v-input" id="v-input" type="text" placeholder="Nome do vendedor..." value="${esc(l.vendedor||'')}" onchange="salvarVendedor('${esc(l.id)}', this.value)">
+      <p class="v-salvo" id="v-salvo">✓ Salvo</p>
+    </div>
     <div class="tabela">
       ${campos.filter(c=>c[1]).map(c=>`<div class="linha"><span class="k">${c[0]}</span><span class="v">${esc(c[1])}</span></div>`).join('')}
     </div>`;
@@ -575,7 +588,7 @@ async function confirmarPerda(){
 
 function copiarTudo(id){
   const l = leads.find(x=>String(x.id)===String(id)); if(!l) return;
-  const txt = `Nome: ${l.nome||''}\nWhatsApp: ${l.whatsapp||''}\nConta de luz: ${l.conta_luz||''}\nAparelhos: ${l.aparelhos||''}\nCidade: ${l.cidade||''}\nForma de pagamento: ${l.forma_pagamento||''}\nPrazo: ${l.prazo||''}\nVisita: ${l.dia_visita||''} ${l.periodo_visita||''}\nStatus: ${l.status||''}`;
+  const txt = `Nome: ${l.nome||''}\nWhatsApp: ${l.whatsapp||''}\nVendedor: ${l.vendedor||''}\nConta de luz: ${l.conta_luz||''}\nAparelhos: ${l.aparelhos||''}\nCidade: ${l.cidade||''}\nForma de pagamento: ${l.forma_pagamento||''}\nPrazo: ${l.prazo||''}\nVisita: ${l.dia_visita||''} ${l.periodo_visita||''}\nStatus: ${l.status||''}`;
   navigator.clipboard.writeText(txt);
 }
 
@@ -820,6 +833,59 @@ function renderMeta(){
   document.getElementById('m-conv').textContent = (m.cliques && total) ? (total/m.cliques*100).toFixed(2)+'%' : '—';
 }
 
+async function salvarVendedor(id, valor) {
+  const vendedor = valor.trim();
+  const l = leads.find(x => String(x.id) === String(id));
+  if (l) l.vendedor = vendedor;
+  // mostrar feedback
+  const el = document.getElementById('v-salvo');
+  if (el) { el.style.display = 'block'; setTimeout(() => { if(el) el.style.display = 'none'; }, 2000); }
+  if (demo) {
+    localStorage.setItem('wm_leads', JSON.stringify(leads));
+  } else {
+    try {
+      await fetch(`${SUPABASE_URL}/rest/v1/leads?id=eq.${id}`, {
+        method: 'PATCH', headers: H(), body: JSON.stringify({ vendedor })
+      });
+    } catch(e) { console.warn('Erro ao salvar vendedor:', e.message); }
+  }
+  renderPipeline();
+  renderDash();
+}
+
+function desenharVendedores(fl) {
+  const el = document.getElementById('vendedores-dash');
+  const com = fl.filter(l => l.vendedor && l.vendedor.trim());
+  if (!com.length) { el.innerHTML = '<p class="vazio-msg">Nenhum lead com vendedor atribuído ainda</p>'; return; }
+  const cont = {};
+  com.forEach(l => {
+    const v = l.vendedor.trim();
+    if (!cont[v]) cont[v] = { total: 0, qualificados: 0, negociacao: 0 };
+    cont[v].total++;
+    if (l.qualificado) cont[v].qualificados++;
+    if (l.status === 'Negociação') cont[v].negociacao++;
+  });
+  const max = Math.max(...Object.values(cont).map(v => v.total));
+  el.innerHTML = Object.entries(cont)
+    .sort((a, b) => b[1].total - a[1].total)
+    .map(([nome, d]) => {
+      const pct = Math.round(d.total / max * 100);
+      const conv = d.total ? Math.round(d.qualificados / d.total * 100) : 0;
+      return `<div class="hbar">
+        <div class="topo">
+          <span>👤 <b style="color:#fff">${esc(nome)}</b></span>
+          <span class="v" style="display:flex;gap:14px;font-size:.75rem">
+            <span style="color:var(--azul)">${d.total} leads</span>
+            <span style="color:var(--verde)">${d.qualificados} qualif.</span>
+            <span style="color:var(--roxo)">${d.negociacao} negoc.</span>
+            <span style="color:var(--ouro)">${conv}% conv.</span>
+          </span>
+        </div>
+        <div class="trilho"><div style="width:${pct}%;background:linear-gradient(90deg,var(--azul),var(--ouro))"></div></div>
+      </div>`;
+    }).join('');
+}
+
 function renderDash(){
   const [ini, fim] = periodo();
   const fl = leads.filter(l=>{
@@ -845,6 +911,7 @@ function renderDash(){
   desenharCidades(fl);
   desenharStatus(fl);
   desenharMotivos(fl);
+  desenharVendedores(fl);
   renderMeta();
 }
 
