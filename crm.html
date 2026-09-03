@@ -148,6 +148,29 @@ h1 span{color:var(--laranja)}
 .hbar .trilho{height:8px;background:rgba(120,160,200,.12);border-radius:99px;overflow:hidden}
 .hbar .trilho > div{height:100%;border-radius:99px}
 .vazio-msg{color:#4A5160;font-size:.85rem;text-align:center;padding:30px 0}
+/* filtros pipeline */
+.pipe-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:16px 28px 0}
+.pipe-filtros{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn-excel{background:linear-gradient(135deg,#217346,#2e9e5b);border:none;color:#fff;font-weight:700;font-family:'Inter',sans-serif;border-radius:99px;padding:9px 20px;font-size:.85rem;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+.btn-excel:hover{filter:brightness(1.1)}
+.pipe-info{font-size:.78rem;color:var(--cinza);padding:6px 28px 0}
+/* aba vendedores */
+#vista-vend main{padding:24px 28px 50px;max-width:600px}
+.vend-card{background:var(--painel);border:1px solid var(--borda);border-radius:14px;padding:22px;margin-bottom:16px}
+.vend-card h3{font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cinza);margin-bottom:16px}
+.vend-add{display:flex;gap:10px;margin-bottom:18px}
+.vend-add input{flex:1;background:var(--card);border:1.5px solid var(--borda);border-radius:10px;padding:11px 14px;color:#fff;font-size:.9rem;font-family:'Inter',sans-serif;outline:none}
+.vend-add input:focus{border-color:var(--ouro)}
+.vend-add button{background:var(--ouro);border:none;border-radius:10px;padding:11px 20px;color:#0A1A2E;font-weight:800;font-family:'Archivo',sans-serif;cursor:pointer;font-size:.9rem;white-space:nowrap}
+.vend-lista{display:flex;flex-direction:column;gap:8px}
+.vend-item{display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--borda);border-radius:10px;padding:12px 14px}
+.vend-item span{font-size:.9rem;font-weight:500}
+.vend-item button{background:transparent;border:none;color:#4A5160;cursor:pointer;font-size:.85rem;padding:4px 8px;border-radius:6px}
+.vend-item button:hover{background:rgba(248,113,113,.15);color:var(--vermelho)}
+.vend-empty{color:#4A5160;font-size:.85rem;text-align:center;padding:20px 0}
+/* select vendedor no modal */
+.v-select{width:100%;background:var(--card2);border:1.5px solid var(--borda);border-radius:10px;padding:12px 14px;color:#fff;font-size:.9rem;font-family:'Inter',sans-serif;outline:none;cursor:pointer;margin-bottom:6px}
+.v-select:focus{border-color:var(--ouro)}
 
 /* import Meta CSV */
 .btn-meta{background:linear-gradient(135deg, #1877F2, #4285F4);border:none;color:#fff;font-weight:700;font-family:'Inter',sans-serif;border-radius:99px;padding:9px 20px;font-size:.85rem;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
@@ -221,6 +244,7 @@ h1 span{color:var(--laranja)}
 <div class="abas">
   <button class="aba ativa" data-vista="pipe" onclick="trocarAba(this)">Pipeline</button>
   <button class="aba" data-vista="dash" onclick="trocarAba(this)">Dashboard</button>
+  <button class="aba" data-vista="vend" onclick="trocarAba(this)">Vendedores</button>
 </div>
 
 <!-- ════════ PIPELINE ════════ -->
@@ -303,6 +327,19 @@ h1 span{color:var(--laranja)}
 </main>
 </section>
 
+<section id="vista-vend" class="vista">
+<main>
+  <div class="vend-card">
+    <h3>Cadastrar vendedor</h3>
+    <div class="vend-add">
+      <input type="text" id="vend-input" placeholder="Nome do vendedor..." onkeydown="if(event.key==='Enter')adicionarVendedor()">
+      <button onclick="adicionarVendedor()">+ Adicionar</button>
+    </div>
+    <div class="vend-lista" id="vend-lista"></div>
+  </div>
+  <p style="font-size:.78rem;color:var(--cinza);margin-top:-8px">Os vendedores cadastrados aparecem como opção ao atribuir um lead.</p>
+</main>
+</section>
 <div id="overlay-motivo">
   <div id="modal-motivo">
     <h2>Marcar como Perdido</h2>
@@ -394,6 +431,7 @@ function trocarAba(btn){
   btn.classList.add('ativa');
   document.querySelectorAll('.vista').forEach(v=>v.classList.remove('ativa'));
   document.getElementById('vista-'+btn.dataset.vista).classList.add('ativa');
+  if(btn.dataset.vista==='vend') renderVendedores();
 }
 
 /* ---------- dados ---------- */
@@ -442,11 +480,113 @@ async function mudarStatus(id, status){
 
 /* ---------- helpers ---------- */
 const esc = s => String(s??'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const fone = w => { let n = String(w??'').replace(/\D/g,''); if(n.startsWith('55') && n.length > 11) n = n.slice(2); return n; };
+const fone = w => String(w??'').replace(/\D/g,'');
 const dataBr = d => d ? new Date(d).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}) : '';
 const brl = n => 'R$ ' + n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
 
 /* ════════ PIPELINE ════════ */
+/* ════ VENDEDORES ════ */
+const VEND_KEY = 'wm_vendedores';
+
+function getVendedores() {
+  try { return JSON.parse(localStorage.getItem(VEND_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveVendedores(lista) {
+  localStorage.setItem(VEND_KEY, JSON.stringify(lista));
+}
+
+function adicionarVendedor() {
+  const input = document.getElementById('vend-input');
+  const nome = input.value.trim();
+  if (!nome) return;
+  const lista = getVendedores();
+  if (lista.some(v => v.toLowerCase() === nome.toLowerCase())) {
+    alert('Vendedor já cadastrado!'); return;
+  }
+  lista.push(nome);
+  saveVendedores(lista);
+  input.value = '';
+  renderVendedores();
+}
+
+function removerVendedor(nome) {
+  if (!confirm(`Remover "${nome}"?`)) return;
+  const lista = getVendedores().filter(v => v !== nome);
+  saveVendedores(lista);
+  renderVendedores();
+}
+
+function renderVendedores() {
+  const lista = getVendedores();
+  const el = document.getElementById('vend-lista');
+  if (!el) return;
+  if (!lista.length) {
+    el.innerHTML = '<p class="vend-empty">Nenhum vendedor cadastrado ainda.</p>';
+    return;
+  }
+  el.innerHTML = lista.map(v => `
+    <div class="vend-item">
+      <span>👤 ${esc(v)}</span>
+      <button onclick="removerVendedor('${esc(v)}')" title="Remover">✕</button>
+    </div>`).join('');
+}
+
+function montarOpcoesVendedor(atual) {
+  const lista = getVendedores();
+  const opts = ['<option value="">— Sem vendedor —</option>'];
+  lista.forEach(v => {
+    const sel = (v === atual) ? 'selected' : '';
+    opts.push(`<option value="${esc(v)}" ${sel}>${esc(v)}</option>`);
+  });
+  // se o vendedor atual não está na lista, adiciona mesmo assim
+  if (atual && !lista.includes(atual)) {
+    opts.push(`<option value="${esc(atual)}" selected>${esc(atual)} (não cadastrado)</option>`);
+  }
+  return opts.join('');
+}
+
+function filtrarPipe(btn) {
+  document.querySelectorAll('.chip[data-pipe-dias]').forEach(b => b.classList.remove('ativo'));
+  btn.classList.add('ativo');
+  filtroPipeDias = Number(btn.dataset.pipeDias);
+  renderPipeline();
+}
+
+function leadsDoPipe() {
+  if (filtroPipeDias === -1) return leads;
+  const fim = new Date(); fim.setHours(23,59,59,999);
+  const ini = new Date(); ini.setHours(0,0,0,0);
+  if (filtroPipeDias > 0) ini.setDate(ini.getDate() - (filtroPipeDias - 1));
+  return leads.filter(l => {
+    if (!l.created_at) return filtroPipeDias === 0;
+    const d = new Date(l.created_at);
+    return d >= ini && d <= fim;
+  });
+}
+
+function exportarExcel() {
+  const fl = leadsDoPipe();
+  if (!fl.length) { alert('Nenhum lead no filtro atual para exportar.'); return; }
+  const cols = ['Nome','WhatsApp','Vendedor','Cidade','Conta de luz','Aparelhos','Pagamento','Prazo','Dia visita','Horário','Status','Motivo perda','Qualificado','Recebido em'];
+  const rows = fl.map(l => [
+    l.nome||'', l.whatsapp||'', l.vendedor||'', l.cidade||'',
+    l.conta_luz||'', l.aparelhos||'', l.forma_pagamento||'',
+    l.prazo||'', l.dia_visita||'', l.periodo_visita||'',
+    l.status||'', l.motivo_perda||'',
+    l.qualificado ? 'Sim' : 'Não',
+    l.created_at ? new Date(l.created_at).toLocaleString('pt-BR') : ''
+  ]);
+  // Montar CSV com BOM para Excel reconhecer UTF-8
+  const esc = v => '"' + String(v).replace(/"/g, '""') + '"';
+  const csv = '\uFEFF' + [cols, ...rows].map(r => r.map(esc).join(';')).join('\r\n');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const label = filtroPipeDias === -1 ? 'todos' : filtroPipeDias === 0 ? 'hoje' : filtroPipeDias + 'dias';
+  a.href = url; a.download = `leads_wm_${label}_${new Date().toLocaleDateString('pt-BR').replace(/\//g,'-')}.csv`;
+  a.click(); URL.revokeObjectURL(url);
+}
+
 function renderPipeline(){
   const board = document.getElementById('board');
   board.innerHTML = '';
@@ -529,7 +669,7 @@ function abrirModal(id){
     </select>
     <div class="v-wrap">
       <p class="m-label">Vendedor responsável</p>
-      <input class="v-input" id="v-input" type="text" placeholder="Nome do vendedor..." value="${esc(l.vendedor||'')}" onchange="salvarVendedor('${esc(l.id)}', this.value)">
+      <select class="v-select" id="v-select" onchange="salvarVendedor('${esc(l.id)}',this.value)">${montarOpcoesVendedor(l.vendedor)}</select>
       <p class="v-salvo" id="v-salvo">✓ Salvo</p>
     </div>
     <div class="tabela">
@@ -844,16 +984,9 @@ async function salvarVendedor(id, valor) {
     localStorage.setItem('wm_leads', JSON.stringify(leads));
   } else {
     try {
-      const resp = await fetch(`${SUPABASE_URL}/rest/v1/leads?id=eq.${id}`, {
-        method: 'PATCH',
-        headers: { ...H(), 'Prefer': 'return=representation' },
-        body: JSON.stringify({ vendedor })
+      await fetch(`${SUPABASE_URL}/rest/v1/leads?id=eq.${id}`, {
+        method: 'PATCH', headers: H(), body: JSON.stringify({ vendedor })
       });
-      if (!resp.ok) {
-        const err = await resp.json().catch(()=>({}));
-        console.warn('Erro ao salvar vendedor no Supabase:', err);
-        // fallback: manter na memória mesmo assim
-      }
     } catch(e) { console.warn('Erro ao salvar vendedor:', e.message); }
   }
   renderPipeline();
@@ -1013,11 +1146,7 @@ function desenharMotivos(fl){
     .map(([m,q])=>barraH(m, q, perdidos.length, '#F87171')).join('');
 }
 
-if(sessionStorage.getItem('wm_crm_ok')==='1'){
-  carregar();
-  // Sincroniza com Supabase a cada 60s automaticamente
-  if(!demo) setInterval(carregar, 60000);
-}
+if(sessionStorage.getItem('wm_crm_ok')==='1') carregar();
 </script>
 </body>
 </html>
