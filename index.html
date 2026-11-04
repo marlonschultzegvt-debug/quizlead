@@ -3,8 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>WM Energia Solar — Orçamento gratuito de energia solar</title>
-<meta name="description" content="Reduza até 95% da sua conta de luz. Faça seu orçamento gratuito de energia solar com a WM Energia Solar em 2 minutos.">
+<title>Mega Feirão WM Energia Solar — 12 a 15 de novembro</title>
+<meta name="description" content="Mega Feirão WM Energia Solar: desconto no kit, financiamento facilitado e brinde. De 12 a 15/11, das 8h às 20h, na Av. Morangueira 1121 em Maringá — ou online. Faça seu orçamento em 2 minutos.">
+<meta property="og:title" content="Mega Feirão WM Energia Solar — 12 a 15/11">
+<meta property="og:description" content="Desconto no kit, financiamento facilitado e brinde. Online e presencial na Av. Morangueira 1121, Maringá-PR.">
+<meta name="theme-color" content="#060D18">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -138,9 +141,62 @@ input:focus{border-color:var(--ouro)}
   color:#fff;border-radius:99px;padding:17px;font-size:1rem;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;
 }
 footer{padding:18px 0 26px;text-align:center;font-size:.78rem;color:#52677F}
+
+/* ════════ MEGA FEIRÃO ════════ */
+.faixa-topo{
+  position:sticky;top:0;z-index:20;width:100%;text-align:center;
+  background:linear-gradient(90deg,#C2410C,var(--laranja),#C2410C);color:#fff;
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;
+  padding:9px 12px;box-shadow:0 4px 18px rgba(232,123,30,.35)
+}
+.faixa-topo b{color:#0A1A2E;background:var(--ouro);border-radius:6px;padding:2px 7px;margin-left:4px}
+#hero.feirao{justify-content:flex-start;padding-top:18px}
+.selo-feirao{
+  display:inline-flex;flex-direction:column;align-items:center;margin:0 auto 16px;position:relative;
+  padding:14px 26px 12px;border-radius:18px;transform:rotate(-2deg);
+  background:linear-gradient(160deg,var(--ouro),var(--laranja));color:#0A1A2E;
+  box-shadow:0 10px 40px rgba(245,197,24,.35),inset 0 -4px 0 rgba(0,0,0,.15);
+  animation:pulsar 3.2s ease-in-out infinite
+}
+.selo-feirao .s1{font-family:'Archivo',sans-serif;font-weight:900;font-size:.85rem;letter-spacing:.3em}
+.selo-feirao .s2{font-family:'Archivo',sans-serif;font-weight:900;font-size:2.1rem;line-height:.95;letter-spacing:-.01em}
+.selo-feirao .s3{font-weight:700;font-size:.8rem;letter-spacing:.06em;margin-top:4px}
+@media (prefers-reduced-motion: reduce){.selo-feirao{animation:none}}
+.contador{margin:0 0 22px}
+.contador .rot-cont{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--cinza);margin-bottom:10px}
+.contador .rot-cont.ao-vivo{color:#FCA5A5}
+.contador .rot-cont.ao-vivo::before{content:'';display:inline-block;width:8px;height:8px;border-radius:50%;background:#EF4444;margin-right:7px;vertical-align:1px;animation:piscar 1.2s infinite}
+@keyframes piscar{50%{opacity:.25}}
+.blocos{display:flex;gap:8px;justify-content:center}
+.blocos div{min-width:64px;border:1px solid var(--card-borda);background:var(--card);border-radius:12px;padding:10px 6px}
+.blocos b{display:block;font-family:'Archivo',sans-serif;font-weight:900;font-size:1.6rem;color:var(--ouro);line-height:1}
+.blocos span{font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cinza)}
+.ofertas{display:grid;gap:10px;margin:22px 0 0;text-align:left}
+.oferta{display:flex;gap:14px;align-items:center;border:1px solid rgba(245,197,24,.35);background:rgba(245,197,24,.06);border-radius:14px;padding:12px 14px}
+.oferta .ic{width:42px;height:42px;flex-shrink:0;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;background:rgba(245,197,24,.12)}
+.oferta b{display:block;font-family:'Archivo',sans-serif;font-weight:800;font-size:1rem}
+.oferta small{color:var(--cinza);font-size:.85rem}
+.local{
+  margin-top:20px;border:1px dashed rgba(245,197,24,.5);border-radius:16px;padding:16px;text-align:left;
+  display:flex;gap:14px;align-items:flex-start;background:rgba(10,26,46,.55)
+}
+.local .pin{font-size:1.6rem;line-height:1}
+.local p{font-size:.92rem;line-height:1.5;color:var(--cinza)}
+.local p b{color:#fff}
+.local a{display:inline-block;margin-top:8px;color:var(--ouro);font-weight:700;text-decoration:none;font-size:.9rem}
+.btn-ouro.feirao{background:linear-gradient(90deg,var(--ouro),#FFB020);font-size:1.05rem}
+.local-final{margin-bottom:22px}
+.mapa{
+  display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;margin-bottom:14px;
+  font-family:'Archivo',sans-serif;font-weight:800;font-size:1rem;color:#0A1A2E;background:var(--ouro);
+  border-radius:99px;padding:17px
+}
+.encerrado .s2{font-size:1.7rem}
 </style>
 </head>
 <body>
+
+<div class="faixa-topo" id="faixa-topo">🎪 Mega Feirão WM · 12 a 15/11 · 8h às 20h <b>Av. Morangueira 1121</b></div>
 
 <div class="wrap">
   <header>
@@ -149,12 +205,41 @@ footer{padding:18px 0 26px;text-align:center;font-size:.78rem;color:#52677F}
   </header>
 
   <!-- HERO -->
-  <section id="hero">
-    <div class="sol"></div>
-    <h1>Chega de pagar caro pela <em>conta de luz</em>.</h1>
-    <p class="sub">Descubra em <b>2 minutos</b> quanto você pode economizar com energia solar. Orçamento gratuito e sem compromisso no WhatsApp.</p>
-    <button class="btn-ouro" onclick="iniciarQuiz()">FAZER MEU ORÇAMENTO →</button>
+  <section id="hero" class="feirao">
+    <div class="selo-feirao" id="selo-feirao">
+      <span class="s1">☀ MEGA ☀</span>
+      <span class="s2">FEIRÃO</span>
+      <span class="s3">12 a 15 de novembro</span>
+    </div>
+    <h1>As melhores condições do ano para você <em>zerar a conta de luz</em>.</h1>
+    <p class="sub">Só no <b>Mega Feirão WM</b>: desconto no kit, financiamento facilitado e brinde. Faça seu orçamento em <b>2 minutos</b> e garanta sua condição — online ou presencial.</p>
+
+    <div class="contador" id="contador">
+      <p class="rot-cont" id="cont-rotulo">O feirão começa em</p>
+      <div class="blocos">
+        <div><b id="c-d">--</b><span>dias</span></div>
+        <div><b id="c-h">--</b><span>horas</span></div>
+        <div><b id="c-m">--</b><span>min</span></div>
+        <div><b id="c-s">--</b><span>seg</span></div>
+      </div>
+    </div>
+
+    <button class="btn-ouro feirao" onclick="iniciarQuiz()">GARANTIR MINHA CONDIÇÃO DE FEIRÃO →</button>
     <p class="selo">⭐ <b>+ de 2.600 projetos</b> instalados no Brasil</p>
+
+    <div class="ofertas">
+      <div class="oferta"><span class="ic">💰</span><div><b>Desconto no kit</b><small>Preço especial de feirão no sistema completo</small></div></div>
+      <div class="oferta"><span class="ic">🏦</span><div><b>Financiamento facilitado</b><small>Parcelas que cabem no lugar da sua conta de luz</small></div></div>
+      <div class="oferta"><span class="ic">🎁</span><div><b>Brinde exclusivo</b><small>Para quem fechar durante o feirão</small></div></div>
+    </div>
+
+    <div class="local">
+      <span class="pin">📍</span>
+      <div>
+        <p><b>Presencial: Av. Morangueira, 1121 — Maringá-PR</b><br>Quinta 12 a domingo 15/11 · das 8h às 20h</p>
+        <a id="link-mapa-hero" href="#" target="_blank" rel="noopener">Ver no mapa →</a>
+      </div>
+    </div>
   </section>
 
   <!-- QUIZ -->
@@ -258,10 +343,28 @@ footer{padding:18px 0 26px;text-align:center;font-size:.78rem;color:#52677F}
       <div class="botoes"><button class="voltar" onclick="voltar()">←</button></div>
     </div>
 
-    <!-- 9. Visita -->
-    <div class="etapa" data-campo="dia_visita" data-rotulo="Visita técnica">
-      <p class="pergunta">Melhor dia para a visita técnica gratuita?</p>
+    <!-- 9. Onde fechar (feirão) — não é coluna no Supabase; vira prefixo em dia_visita -->
+    <div class="etapa" data-campo="onde" data-rotulo="Atendimento">
+      <p class="pergunta">Como prefere garantir sua condição de feirão?</p>
+      <p class="dica">As condições do Mega Feirão valem online e presencial.</p>
       <div class="opcoes">
+        <button class="op" data-onde="feirao" id="op-feirao"><span class="tile">🎪</span>Ir ao Mega Feirão (Av. Morangueira, 1121)</button>
+        <button class="op" data-onde="casa"><span class="tile">🏠</span>Visita técnica gratuita em casa</button>
+        <button class="op" data-onde="online"><span class="tile">💬</span>Receber a proposta pelo WhatsApp</button>
+      </div>
+      <div class="botoes"><button class="voltar" onclick="voltar()">←</button></div>
+    </div>
+
+    <!-- 10. Visita -->
+    <div class="etapa" data-campo="dia_visita" data-rotulo="Visita">
+      <p class="pergunta" id="perg-dia">Melhor dia para a visita técnica gratuita?</p>
+      <div class="opcoes" id="dias-feirao" style="display:none">
+        <button class="op" data-feirao="1"><span class="tile">🎪</span>Quinta, 12/11</button>
+        <button class="op" data-feirao="1"><span class="tile">🎪</span>Sexta, 13/11</button>
+        <button class="op" data-feirao="1"><span class="tile">🎪</span>Sábado, 14/11</button>
+        <button class="op" data-feirao="1"><span class="tile">🎪</span>Domingo, 15/11</button>
+      </div>
+      <div class="opcoes" id="dias-casa">
         <button class="op">Segunda</button>
         <button class="op">Terça</button>
         <button class="op">Quarta</button>
@@ -272,9 +375,9 @@ footer{padding:18px 0 26px;text-align:center;font-size:.78rem;color:#52677F}
       <div class="botoes"><button class="voltar" onclick="voltar()">←</button></div>
     </div>
 
-    <!-- 10. Horário -->
+    <!-- 11. Horário -->
     <div class="etapa" data-campo="periodo_visita" data-rotulo="Horário">
-      <p class="pergunta">Qual o melhor período?</p>
+      <p class="pergunta" id="perg-periodo">Qual o melhor período?</p>
       <div class="opcoes">
         <button class="op"><span class="tile">🌅</span>Manhã</button>
         <button class="op"><span class="tile">☀️</span>Tarde</button>
@@ -287,7 +390,12 @@ footer{padding:18px 0 26px;text-align:center;font-size:.78rem;color:#52677F}
   <!-- FINAL -->
   <section id="final">
     <h2 id="final-titulo">Recebido!</h2>
-    <p class="msg">Em até <b style="color:#fff">12h</b> um de nossos consultores entra em contato para confirmar a visita e apresentar sua proposta.</p>
+    <p class="msg" id="final-msg">Em até <b style="color:#fff">12h</b> um de nossos consultores entra em contato para confirmar a visita e apresentar sua proposta com as <b style="color:var(--ouro)">condições do Mega Feirão</b>.</p>
+    <div class="local local-final" id="local-final" style="display:none">
+      <span class="pin">📍</span>
+      <div><p><b>Te esperamos no Mega Feirão WM!</b><br>Av. Morangueira, 1121 — Maringá-PR<br>12 a 15/11 · das 8h às 20h</p></div>
+    </div>
+    <a class="mapa" id="link-mapa-final" href="#" target="_blank" rel="noopener" style="display:none">📍 Como chegar ao feirão →</a>
     <div class="resumo">
       <h3>Resumo das suas respostas</h3>
       <div id="resumo-linhas"></div>
@@ -310,7 +418,61 @@ const WHATSAPP_WM   = "554491267817";          // ← número oficial WM (com 55
 const LOGO_URL      = "";   // ex.: "logo.png" — vazio usa logo em texto
 const META_PIXEL_ID = "764889844760458";   // Fase 2 — preencher para disparar evento Lead
 const REAJUSTE_ANO  = 0.08; // reajuste médio anual usado na projeção
+
+/* MEGA FEIRÃO — horário de Brasília (-03:00) */
+const FEIRAO = {
+  inicio:   new Date('2026-11-12T08:00:00-03:00'),
+  fim:      new Date('2026-11-15T20:00:00-03:00'),
+  dias:     ['2026-11-12', '2026-11-13', '2026-11-14', '2026-11-15'], // mesma ordem dos botões
+  endereco: 'Av. Morangueira, 1121 - Maringá - PR',
+};
 /* ═══════════════════════════════════════════════ */
+
+/* ---------- MEGA FEIRÃO: mapa + contador ---------- */
+const MAPA_URL = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(FEIRAO.endereco);
+document.getElementById('link-mapa-hero').href = MAPA_URL;
+document.getElementById('link-mapa-final').href = MAPA_URL;
+const pad = n => String(n).padStart(2, '0');
+
+function tickFeirao() {
+  const agora = new Date();
+  const rot = document.getElementById('cont-rotulo');
+  let alvo;
+  if (agora < FEIRAO.inicio) {
+    alvo = FEIRAO.inicio; rot.textContent = 'O feirão começa em'; rot.classList.remove('ao-vivo');
+  } else if (agora < FEIRAO.fim) {
+    alvo = FEIRAO.fim; rot.textContent = 'Acontecendo agora · termina em'; rot.classList.add('ao-vivo');
+  } else {
+    // encerrado: some o contador e a opção presencial
+    document.getElementById('contador').style.display = 'none';
+    document.getElementById('op-feirao').style.display = 'none';
+    document.getElementById('faixa-topo').textContent = 'Mega Feirão WM encerrado · fale com um consultor e confira as condições';
+    document.querySelector('#selo-feirao .s3').textContent = 'encerrado';
+    return false;
+  }
+  const s = Math.max(0, Math.floor((alvo - agora) / 1000));
+  document.getElementById('c-d').textContent = pad(Math.floor(s / 86400));
+  document.getElementById('c-h').textContent = pad(Math.floor(s % 86400 / 3600));
+  document.getElementById('c-m').textContent = pad(Math.floor(s % 3600 / 60));
+  document.getElementById('c-s').textContent = pad(s % 60);
+  // esconde dias do feirão que já terminaram (após 20h do dia)
+  document.querySelectorAll('#dias-feirao .op').forEach((b, i) => {
+    const d = FEIRAO.dias[i];
+    if (d && agora > new Date(d + 'T20:00:00-03:00')) b.style.display = 'none';
+  });
+  return true;
+}
+if (tickFeirao()) { const t = setInterval(() => { if (!tickFeirao()) clearInterval(t); }, 1000); }
+
+let onde = 'casa'; // 'feirao' | 'casa' | 'online'
+
+function configurarVisita() {
+  const feirao = onde === 'feirao';
+  document.getElementById('dias-feirao').style.display = feirao ? 'flex' : 'none';
+  document.getElementById('dias-casa').style.display = feirao ? 'none' : 'flex';
+  document.getElementById('perg-dia').textContent = feirao ? 'Qual dia você vai ao feirão?' : 'Melhor dia para a visita técnica gratuita?';
+  document.getElementById('perg-periodo').textContent = feirao ? 'Em que período pretende passar lá? (8h às 20h)' : 'Qual o melhor período?';
+}
 
 if (LOGO_URL) {
   document.getElementById('logoImg').src = LOGO_URL;
@@ -354,7 +516,8 @@ async function criarLead(dados) {
   const dadosLimpos = { ...dados };
   // Remove campos booleanos que podem quebrar schema antigo
   delete dadosLimpos.qualificado;
-  
+  delete dadosLimpos.onde; // não existe coluna no Supabase
+
   if (demo) {
     leadId = backupId;
     salvarLocalBackup({ id: leadId, created_at: new Date().toISOString(), ...dadosLimpos });
@@ -474,7 +637,20 @@ async function avancar() {
     if (input) lead[campo] = input.value.trim();
   }
 
-  if (campo === 'whatsapp') await criarLead({ ...lead });
+  // Feirão: marca a origem dentro de dia_visita (aparece no CRM sem mudar o schema)
+  if (campo === 'dia_visita') {
+    const dia = rotuloOp(et.querySelector('.op.sel') || et.querySelector('.op'));
+    lead.dia_visita = onde === 'feirao' ? `🎪 No Feirão — ${dia}` : `${dia} (em casa) · Feirão`;
+  }
+
+  if (campo === 'onde') {
+    if (onde === 'online') {
+      lead.dia_visita = '💬 Proposta online (WhatsApp) · Feirão';
+      if (leadId) atualizarLead({ dia_visita: lead.dia_visita });
+      return finalizar();
+    }
+    configurarVisita();
+  } else if (campo === 'whatsapp') await criarLead({ ...lead });
   else if (leadId && campo !== 'gasto') atualizarLead({ [campo]: lead[campo] });
 
   if (idx < etapas.length - 1) mostrar(idx + 1);
@@ -495,6 +671,13 @@ async function finalizar() {
   document.getElementById('quiz').style.display = 'none';
   document.getElementById('final').style.display = 'flex';
   document.getElementById('final-titulo').textContent = lead.nome ? `Recebido, ${lead.nome.split(' ')[0]}.` : 'Recebido!';
+  if (onde === 'feirao') {
+    document.getElementById('local-final').style.display = 'flex';
+    document.getElementById('link-mapa-final').style.display = 'flex';
+    document.getElementById('final-msg').innerHTML = 'Sua condição de feirão está reservada. Um consultor vai te chamar no WhatsApp para confirmar o horário da sua visita ao <b style="color:var(--ouro)">Mega Feirão</b>.';
+  } else if (onde === 'online') {
+    document.getElementById('final-msg').innerHTML = 'Em até <b style="color:#fff">12h</b> um consultor te envia pelo WhatsApp sua proposta com as <b style="color:var(--ouro)">condições do Mega Feirão</b>.';
+  }
 
   const linhas = [
     ['Conta mensal', lead.conta_luz],
@@ -504,7 +687,8 @@ async function finalizar() {
     ['Cidade', lead.cidade],
     ['Pagamento', lead.forma_pagamento],
     ['Prazo', lead.prazo],
-    ['Visita técnica', lead.dia_visita],
+    ['Atendimento', lead.onde],
+    ['Dia', lead.dia_visita],
     ['Horário', lead.periodo_visita],
   ];
   document.getElementById('resumo-linhas').innerHTML = linhas
@@ -519,10 +703,11 @@ async function finalizar() {
     `🔌 *Aumento de consumo:* ${lead.aparelhos || '-'}`,
     `💳 *Pagamento:* ${lead.forma_pagamento || '-'}`,
     `📅 *Prazo:* ${lead.prazo || '-'}`,
+    `🎪 *Atendimento:* ${lead.onde || '-'}`,
     `🗓️ *Melhor dia:* ${lead.dia_visita || '-'}`,
     `🕐 *Melhor horário:* ${lead.periodo_visita || '-'}`,
   ].join('\n');
-  const msg = encodeURIComponent(`Olá! Preenchi o orçamento no site da WM Energia Solar. Seguem meus dados:\n\n${linhasMsg}`);
+  const msg = encodeURIComponent(`Olá! Vim pelo *Mega Feirão WM* e quero garantir minha condição. Seguem meus dados:\n\n${linhasMsg}`);
   document.getElementById('link-zap').href = `https://wa.me/${WHATSAPP_WM}?text=${msg}`;
 }
 
@@ -584,6 +769,7 @@ etapas.forEach(et => {
         op.classList.add('sel');
         lead[et.dataset.campo] = rotuloOp(op);
         if (et.dataset.campo === 'conta_luz') mediaConta = Number(op.dataset.media) || 0;
+        if (et.dataset.campo === 'onde') onde = op.dataset.onde;
         setTimeout(avancar, 220);
       }
     });
