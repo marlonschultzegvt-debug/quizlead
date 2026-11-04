@@ -7,17 +7,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --preto:#0A0A0A; --painel:#111419; --card:#181D24; --card2:#1E242D; --borda:#262D38;
-  --laranja:#E87B1E; --azul:#1A6FA8; --ouro:#F5C518; --verde:#22C55E; --roxo:#A855F7; --vermelho:#F87171;
-  --branco:#FFF; --cinza:#8B93A1;
-}
+:root{--preto:#0A0A0A;--painel:#111419;--card:#181D24;--card2:#1E242D;--borda:#262D38;--laranja:#E87B1E;--azul:#1A6FA8;--ouro:#F5C518;--verde:#22C55E;--roxo:#A855F7;--vermelho:#F87171;--branco:#FFF;--cinza:#8B93A1;}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',sans-serif;background:var(--preto);color:#fff;min-height:100vh;
-  background-image:radial-gradient(ellipse 70% 40% at 50% -5%, rgba(26,111,168,.12), transparent 60%)}
+body{font-family:'Inter',sans-serif;background:var(--preto);color:#fff;min-height:100vh;background-image:radial-gradient(ellipse 70% 40% at 50% -5%, rgba(26,111,168,.12), transparent 60%)}
 a{color:inherit}
-
-/* ---------- login ---------- */
 #login{position:fixed;inset:0;background:var(--preto);display:flex;align-items:center;justify-content:center;z-index:50}
 .login-box{width:min(360px,90vw);background:var(--painel);border:1px solid var(--borda);border-radius:16px;padding:34px;text-align:center}
 .login-box h2{font-family:'Archivo',sans-serif;font-weight:900;margin-bottom:4px}
@@ -27,8 +20,6 @@ a{color:inherit}
 .login-box input:focus{border-color:var(--laranja)}
 .login-box button{width:100%;background:linear-gradient(135deg,var(--laranja),#FF9A3D);border:none;border-radius:10px;padding:13px;color:#fff;font-weight:800;font-family:'Archivo',sans-serif;font-size:.95rem;cursor:pointer}
 .erro{color:var(--vermelho);font-size:.8rem;margin-top:8px;display:none}
-
-/* ---------- topo + abas ---------- */
 header{padding:24px 28px 0;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
 h1{font-family:'Archivo',sans-serif;font-weight:900;font-size:1.65rem}
 h1 span{color:var(--laranja)}
@@ -39,15 +30,30 @@ h1 span{color:var(--laranja)}
 .btn:hover{border-color:var(--laranja)}
 .btn.demo-tag{border-color:var(--ouro);color:var(--ouro);cursor:default}
 .abas{display:flex;gap:4px;padding:16px 28px 0;border-bottom:1px solid var(--borda)}
-.aba{
-  background:transparent;border:none;color:var(--cinza);font-family:'Archivo',sans-serif;font-weight:700;
-  font-size:.95rem;padding:12px 22px;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px;
-}
+.aba{background:transparent;border:none;color:var(--cinza);font-family:'Archivo',sans-serif;font-weight:700;font-size:.95rem;padding:12px 22px;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px}
 .aba.ativa{color:var(--ouro);border-bottom-color:var(--ouro)}
 .vista{display:none}
 .vista.ativa{display:block}
-
-/* ---------- PIPELINE ---------- */
+.pipe-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:16px 28px 0}
+.pipe-filtros{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn-excel{background:linear-gradient(135deg,#217346,#2e9e5b);border:none;color:#fff;font-weight:700;font-family:'Inter',sans-serif;border-radius:99px;padding:9px 20px;font-size:.85rem;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+.btn-excel:hover{filter:brightness(1.1)}
+.pipe-info{font-size:.78rem;color:var(--cinza);padding:6px 28px 0}
+#vista-vend main{padding:24px 28px 50px;max-width:600px}
+.vend-card{background:var(--painel);border:1px solid var(--borda);border-radius:14px;padding:22px;margin-bottom:16px}
+.vend-card h3{font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cinza);margin-bottom:16px}
+.vend-add{display:flex;gap:10px;margin-bottom:18px}
+.vend-add input{flex:1;background:var(--card);border:1.5px solid var(--borda);border-radius:10px;padding:11px 14px;color:#fff;font-size:.9rem;font-family:'Inter',sans-serif;outline:none}
+.vend-add input:focus{border-color:var(--ouro)}
+.vend-add button{background:var(--ouro);border:none;border-radius:10px;padding:11px 20px;color:#0A1A2E;font-weight:800;font-family:'Archivo',sans-serif;cursor:pointer;font-size:.9rem;white-space:nowrap}
+.vend-lista{display:flex;flex-direction:column;gap:8px}
+.vend-item{display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--borda);border-radius:10px;padding:12px 14px}
+.vend-item span{font-size:.9rem;font-weight:500}
+.vend-item button{background:transparent;border:none;color:#4A5160;cursor:pointer;font-size:.85rem;padding:4px 8px;border-radius:6px}
+.vend-item button:hover{background:rgba(248,113,113,.15);color:var(--vermelho)}
+.vend-empty{color:#4A5160;font-size:.85rem;text-align:center;padding:20px 0}
+.v-select{width:100%;background:var(--card2);border:1.5px solid var(--borda);border-radius:10px;padding:12px 14px;color:#fff;font-size:.9rem;font-family:'Inter',sans-serif;outline:none;cursor:pointer;margin-bottom:6px}
+.v-select:focus{border-color:var(--ouro)}
 #board{display:flex;gap:14px;padding:20px 28px 40px;overflow-x:auto;align-items:flex-start}
 .col{min-width:272px;width:272px;flex-shrink:0;background:var(--painel);border:1px solid var(--borda);border-radius:14px;padding:12px}
 .col-head{display:flex;align-items:center;justify-content:space-between;padding:6px 8px 12px}
@@ -67,8 +73,6 @@ h1 span{color:var(--laranja)}
 .info b{color:#C8CEDA;font-weight:500}
 .lead select{width:100%;margin-top:10px;background:var(--card2);border:1px solid var(--borda);border-radius:9px;padding:9px 10px;color:#fff;font-size:.8rem;font-family:'Inter',sans-serif;outline:none;cursor:pointer}
 .data{font-size:.68rem;color:#555E6E;margin-top:8px}
-
-/* modal */
 #overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:40;padding:18px}
 #modal{position:relative;width:min(480px,100%);max-height:88vh;overflow-y:auto;background:#0F1A2A;border:1px solid var(--borda);border-radius:16px;padding:26px}
 #modal h2{font-family:'Archivo',sans-serif;font-size:1.4rem;margin-bottom:2px}
@@ -85,14 +89,8 @@ h1 span{color:var(--laranja)}
 .linha .k{color:var(--cinza)}
 .linha .v{text-align:right;font-weight:500}
 .fechar{position:absolute;top:14px;right:18px;background:none;border:none;color:var(--cinza);font-size:1.3rem;cursor:pointer}
-/* campo vendedor */
 .v-wrap{margin-bottom:20px}
-.v-label{font-size:.75rem;color:var(--cinza);margin-bottom:6px}
-.v-input{width:100%;background:var(--card2);border:1.5px solid var(--borda);border-radius:10px;padding:12px 14px;color:#fff;font-size:.9rem;font-family:'Inter',sans-serif;outline:none;transition:border-color .15s}
-.v-input:focus{border-color:var(--ouro)}
 .v-salvo{font-size:.72rem;color:var(--verde);margin-top:5px;display:none}
-
-/* modal de motivo da perda */
 #overlay-motivo{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;z-index:45;padding:18px}
 #modal-motivo{width:min(420px,100%);background:#1A0F12;border:1px solid rgba(248,113,113,.4);border-radius:16px;padding:24px}
 #modal-motivo h2{font-family:'Archivo',sans-serif;font-size:1.15rem;margin-bottom:4px;color:var(--vermelho)}
@@ -106,8 +104,6 @@ h1 span{color:var(--laranja)}
 .mot-cancelar{flex:1;background:transparent;border:1px solid var(--borda);color:var(--cinza);border-radius:99px;padding:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif}
 .mot-confirmar{flex:1;background:var(--vermelho);border:none;color:#fff;border-radius:99px;padding:12px;font-weight:800;cursor:pointer;font-family:'Archivo',sans-serif}
 .mot-confirmar:disabled{opacity:.4;cursor:not-allowed}
-
-/* ---------- DASHBOARD ---------- */
 #vista-dash main{padding:20px 28px 50px;max-width:1100px;margin:0 auto}
 .filtros{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 22px}
 .chip{background:var(--card);border:1px solid var(--borda);color:var(--cinza);border-radius:99px;padding:8px 18px;font-size:.83rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif}
@@ -148,32 +144,7 @@ h1 span{color:var(--laranja)}
 .hbar .trilho{height:8px;background:rgba(120,160,200,.12);border-radius:99px;overflow:hidden}
 .hbar .trilho > div{height:100%;border-radius:99px}
 .vazio-msg{color:#4A5160;font-size:.85rem;text-align:center;padding:30px 0}
-/* filtros pipeline */
-.pipe-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:16px 28px 0}
-.pipe-filtros{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.btn-excel{background:linear-gradient(135deg,#217346,#2e9e5b);border:none;color:#fff;font-weight:700;font-family:'Inter',sans-serif;border-radius:99px;padding:9px 20px;font-size:.85rem;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
-.btn-excel:hover{filter:brightness(1.1)}
-.pipe-info{font-size:.78rem;color:var(--cinza);padding:6px 28px 0}
-/* aba vendedores */
-#vista-vend main{padding:24px 28px 50px;max-width:600px}
-.vend-card{background:var(--painel);border:1px solid var(--borda);border-radius:14px;padding:22px;margin-bottom:16px}
-.vend-card h3{font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cinza);margin-bottom:16px}
-.vend-add{display:flex;gap:10px;margin-bottom:18px}
-.vend-add input{flex:1;background:var(--card);border:1.5px solid var(--borda);border-radius:10px;padding:11px 14px;color:#fff;font-size:.9rem;font-family:'Inter',sans-serif;outline:none}
-.vend-add input:focus{border-color:var(--ouro)}
-.vend-add button{background:var(--ouro);border:none;border-radius:10px;padding:11px 20px;color:#0A1A2E;font-weight:800;font-family:'Archivo',sans-serif;cursor:pointer;font-size:.9rem;white-space:nowrap}
-.vend-lista{display:flex;flex-direction:column;gap:8px}
-.vend-item{display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--borda);border-radius:10px;padding:12px 14px}
-.vend-item span{font-size:.9rem;font-weight:500}
-.vend-item button{background:transparent;border:none;color:#4A5160;cursor:pointer;font-size:.85rem;padding:4px 8px;border-radius:6px}
-.vend-item button:hover{background:rgba(248,113,113,.15);color:var(--vermelho)}
-.vend-empty{color:#4A5160;font-size:.85rem;text-align:center;padding:20px 0}
-/* select vendedor no modal */
-.v-select{width:100%;background:var(--card2);border:1.5px solid var(--borda);border-radius:10px;padding:12px 14px;color:#fff;font-size:.9rem;font-family:'Inter',sans-serif;outline:none;cursor:pointer;margin-bottom:6px}
-.v-select:focus{border-color:var(--ouro)}
-
-/* import Meta CSV */
-.btn-meta{background:linear-gradient(135deg, #1877F2, #4285F4);border:none;color:#fff;font-weight:700;font-family:'Inter',sans-serif;border-radius:99px;padding:9px 20px;font-size:.85rem;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+.btn-meta{background:linear-gradient(135deg,#1877F2,#4285F4);border:none;color:#fff;font-weight:700;font-family:'Inter',sans-serif;border-radius:99px;padding:9px 20px;font-size:.85rem;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
 .btn-meta:hover{filter:brightness(1.1)}
 .metabox{background:var(--painel);border:1px solid var(--borda);border-radius:14px;padding:18px;margin-bottom:14px;display:none}
 .metabox.ativo{display:block}
@@ -187,13 +158,12 @@ h1 span{color:var(--laranja)}
 .metakpi .rot{font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--cinza);margin-bottom:6px}
 .metakpi .num{font-family:'Archivo',sans-serif;font-weight:900;font-size:1.4rem;line-height:1}
 .metakpi .ext{font-size:.7rem;color:var(--cinza);margin-top:5px}
-
 #overlay-import{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;z-index:45;padding:18px}
 #modal-import{width:min(540px,100%);background:#0F1A2A;border:1px solid var(--borda);border-radius:16px;padding:26px;max-height:88vh;overflow-y:auto;position:relative}
 #modal-import h2{font-family:'Archivo',sans-serif;font-size:1.3rem;margin-bottom:6px;display:flex;align-items:center;gap:10px}
 #modal-import .mp{color:var(--cinza);font-size:.88rem;margin-bottom:18px;line-height:1.5}
 .dropzone{border:2px dashed var(--borda);border-radius:14px;padding:32px 18px;text-align:center;cursor:pointer;transition:all .15s;margin-bottom:16px}
-.dropzone:hover, .dropzone.drag{border-color:#1877F2;background:rgba(24,119,242,.06)}
+.dropzone:hover,.dropzone.drag{border-color:#1877F2;background:rgba(24,119,242,.06)}
 .dropzone p{color:var(--cinza);font-size:.88rem;margin-top:8px}
 .dropzone .icone{font-size:2.2rem}
 #csv-input{display:none}
@@ -206,127 +176,53 @@ h1 span{color:var(--laranja)}
 .import-botoes{display:flex;gap:10px}
 .import-botoes button{flex:1;border-radius:99px;padding:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;font-size:.9rem;border:none}
 .btn-cancel{background:transparent;border:1px solid var(--borda) !important;color:var(--cinza)}
-.btn-importar{background:linear-gradient(135deg, #1877F2, #4285F4);color:#fff;font-family:'Archivo',sans-serif !important;font-weight:800 !important}
+.btn-importar{background:linear-gradient(135deg,#1877F2,#4285F4);color:#fff;font-family:'Archivo',sans-serif !important;font-weight:800 !important}
 .btn-importar:disabled{opacity:.4;cursor:not-allowed}
 .como-baixar{background:rgba(24,119,242,.06);border:1px solid rgba(24,119,242,.3);border-radius:10px;padding:14px;margin-bottom:16px;font-size:.82rem;color:var(--cinza);line-height:1.6}
 .como-baixar b{color:#fff}
 .como-baixar summary{cursor:pointer;color:#fff;font-weight:600;margin-bottom:6px}
 .como-baixar ol{margin:8px 0 0 18px}
 .como-baixar li{margin-bottom:5px}
-
 @media(max-width:640px){header{padding:20px 16px 0}.abas{padding:12px 16px 0}#board{padding:16px 16px 30px}.col{min-width:248px;width:248px}#vista-dash main{padding:16px 16px 40px}}
 </style>
 </head>
 <body>
-
-<div id="login">
-  <div class="login-box">
-    <h2>WM <span>ENERGIA SOLAR</span></h2>
-    <p>CRM · Captação de Leads</p>
-    <input type="password" id="senha" placeholder="Senha de acesso" onkeydown="if(event.key==='Enter')entrar()">
-    <button onclick="entrar()">Entrar</button>
-    <p class="erro" id="erro">Senha incorreta.</p>
-  </div>
-</div>
-
-<header>
-  <div>
-    <h1>CRM · <span>Captação</span></h1>
-    <p class="sub">Todo quiz preenchido até o final cai automaticamente em <b>Qualificado Para Proposta</b>.</p>
-  </div>
-  <div class="acoes">
-    <button class="btn demo-tag" id="tagDemo" style="display:none">⚠ Modo demo</button>
-    <button class="btn" onclick="carregar()">Atualizar</button>
-    <button class="btn" onclick="sair()">Sair</button>
-  </div>
-</header>
-
+<div id="login"><div class="login-box"><h2>WM <span>ENERGIA SOLAR</span></h2><p>CRM · Captação de Leads</p><input type="password" id="senha" placeholder="Senha de acesso" onkeydown="if(event.key==='Enter')entrar()"><button onclick="entrar()">Entrar</button><p class="erro" id="erro">Senha incorreta.</p></div></div>
+<header><div><h1>CRM · <span>Captação</span></h1><p class="sub">Todo quiz preenchido até o final cai automaticamente em <b>Qualificado Para Proposta</b>.</p></div><div class="acoes"><button class="btn demo-tag" id="tagDemo" style="display:none">⚠ Modo demo</button><button class="btn" onclick="carregar()">Atualizar</button><button class="btn" onclick="sair()">Sair</button></div></header>
 <div class="abas">
   <button class="aba ativa" data-vista="pipe" onclick="trocarAba(this)">Pipeline</button>
   <button class="aba" data-vista="dash" onclick="trocarAba(this)">Dashboard</button>
   <button class="aba" data-vista="vend" onclick="trocarAba(this)">Vendedores</button>
 </div>
-
-<!-- ════════ PIPELINE ════════ -->
 <section id="vista-pipe" class="vista ativa">
+  <div class="pipe-header">
+    <div class="pipe-filtros">
+      <button class="chip ativo" data-pipe-dias="-1" onclick="filtrarPipe(this)">Todos</button>
+      <button class="chip" data-pipe-dias="0" onclick="filtrarPipe(this)">Hoje</button>
+      <button class="chip" data-pipe-dias="7" onclick="filtrarPipe(this)">7 dias</button>
+      <button class="chip" data-pipe-dias="30" onclick="filtrarPipe(this)">Este mês</button>
+      <button class="chip" data-pipe-dias="90" onclick="filtrarPipe(this)">3 meses</button>
+    </div>
+    <button class="btn-excel" onclick="exportarExcel()">📥 Exportar Excel</button>
+  </div>
+  <p class="pipe-info" id="pipe-info"></p>
   <div id="board"></div>
 </section>
-
-<!-- ════════ DASHBOARD ════════ -->
 <section id="vista-dash" class="vista">
 <main>
   <div class="filtros">
-    <button class="chip" data-dias="0">Hoje</button>
-    <button class="chip" data-dias="7">7 dias</button>
-    <button class="chip ativo" data-dias="30">30 dias</button>
-    <button class="chip" data-dias="-1">Tudo</button>
-    <div class="datas">
-      <input type="date" id="d-ini"> <span>até</span> <input type="date" id="d-fim">
-      <button class="chip" onclick="aplicarPersonalizado()">Aplicar</button>
-      <button class="btn-meta" onclick="abrirImport()">📊 Importar dados Meta Ads</button>
-    </div>
+    <button class="chip" data-dias="0">Hoje</button><button class="chip" data-dias="7">7 dias</button><button class="chip ativo" data-dias="30">30 dias</button><button class="chip" data-dias="-1">Tudo</button>
+    <div class="datas"><input type="date" id="d-ini"> <span>até</span> <input type="date" id="d-fim"><button class="chip" onclick="aplicarPersonalizado()">Aplicar</button><button class="btn-meta" onclick="abrirImport()">📊 Importar dados Meta Ads</button></div>
   </div>
-
-  <div class="metabox" id="metabox">
-    <div class="head">
-      <h3>📊 Dados do Meta Ads <span class="periodo" id="meta-periodo"></span></h3>
-      <button class="limpar" onclick="limparMeta()">Limpar dados</button>
-    </div>
-    <div class="metakpis">
-      <div class="metakpi"><p class="rot">Investido</p><p class="num" id="m-gasto" style="color:#1877F2">—</p><p class="ext" id="m-gasto-ext"></p></div>
-      <div class="metakpi"><p class="rot">Impressões</p><p class="num" id="m-imp" style="color:var(--cinza)">—</p></div>
-      <div class="metakpi"><p class="rot">Cliques</p><p class="num" id="m-cliques" style="color:var(--cinza)">—</p></div>
-      <div class="metakpi"><p class="rot">CTR</p><p class="num" id="m-ctr" style="color:var(--ouro)">—</p><p class="ext">cliques ÷ impressões</p></div>
-      <div class="metakpi"><p class="rot">CPC</p><p class="num" id="m-cpc" style="color:var(--ouro)">—</p><p class="ext">custo por clique</p></div>
-      <div class="metakpi"><p class="rot">CPL real (Meta)</p><p class="num" id="m-cpl" style="color:var(--verde)">—</p><p class="ext">investido ÷ leads do CRM</p></div>
-      <div class="metakpi"><p class="rot">CPLQ (qualificado)</p><p class="num" id="m-cplq" style="color:var(--verde)">—</p><p class="ext">investido ÷ qualificados</p></div>
-      <div class="metakpi"><p class="rot">Clique → Lead</p><p class="num" id="m-conv" style="color:var(--laranja)">—</p><p class="ext">taxa de conversão</p></div>
-    </div>
-  </div>
-
-  <div class="kpis">
-    <div class="kpi"><p class="rot">Leads no período</p><p class="num" id="k-total" style="color:var(--azul)">0</p><p class="extra" id="k-total-extra"></p></div>
-    <div class="kpi"><p class="rot">Qualificados</p><p class="num" id="k-qual" style="color:var(--verde)">0</p><p class="extra">completaram o quiz</p></div>
-    <div class="kpi"><p class="rot">Taxa de conclusão</p><p class="num" id="k-taxa" style="color:var(--ouro)">0%</p><p class="extra">qualificados ÷ leads</p></div>
-    <div class="kpi"><p class="rot">Não finalizaram</p><p class="num" id="k-parc" style="color:var(--laranja)">0</p><p class="extra">pararam no meio — vale resgatar</p></div>
-    <div class="kpi"><p class="rot">Em negociação</p><p class="num" id="k-neg" style="color:var(--roxo)">0</p><p class="extra">status atual na pipeline</p></div>
-    <div class="kpi"><p class="rot">Perdidos</p><p class="num" id="k-perd" style="color:var(--vermelho)">0</p><p class="extra" id="k-perd-extra">no período</p></div>
-  </div>
-
-  <div class="cpl">
-    <div>
-      <p class="rot">Investimento no período (R$)</p>
-      <input type="number" id="invest" placeholder="Ex.: 1500" min="0" step="50">
-    </div>
-    <div class="res">
-      <div class="ouro"><span class="rot">CPL (custo por lead)</span><b id="r-cpl">—</b></div>
-      <div class="verde"><span class="rot">CPL qualificado</span><b id="r-cplq">—</b></div>
-    </div>
-    <small>Digite o valor investido no Meta no período filtrado. Fase 2: integração automática com a API do Meta (CPC, CTR, CPA).</small>
-  </div>
-
-  <div class="painel">
-    <h3>Leads por dia</h3>
-    <div class="chart" id="chart"></div>
-    <div class="legenda">
-      <span><i style="background:rgba(26,111,168,.55)"></i>Leads</span>
-      <span><i style="background:var(--verde)"></i>Qualificados</span>
-    </div>
-  </div>
-
-  <div class="grid2">
-    <div class="painel"><h3>Faixa de conta de luz</h3><div id="faixas"></div></div>
-    <div class="painel"><h3>Top cidades</h3><div id="cidades"></div></div>
-  </div>
-
-  <div class="grid2">
-    <div class="painel"><h3>Status na pipeline</h3><div id="statusbars"></div></div>
-    <div class="painel"><h3>Motivos de perda</h3><div id="motivos-dash"></div></div>
-  </div>
+  <div class="metabox" id="metabox"><div class="head"><h3>📊 Dados do Meta Ads <span class="periodo" id="meta-periodo"></span></h3><button class="limpar" onclick="limparMeta()">Limpar dados</button></div><div class="metakpis"><div class="metakpi"><p class="rot">Investido</p><p class="num" id="m-gasto" style="color:#1877F2">—</p><p class="ext" id="m-gasto-ext"></p></div><div class="metakpi"><p class="rot">Impressões</p><p class="num" id="m-imp" style="color:var(--cinza)">—</p></div><div class="metakpi"><p class="rot">Cliques</p><p class="num" id="m-cliques" style="color:var(--cinza)">—</p></div><div class="metakpi"><p class="rot">CTR</p><p class="num" id="m-ctr" style="color:var(--ouro)">—</p><p class="ext">cliques ÷ impressões</p></div><div class="metakpi"><p class="rot">CPC</p><p class="num" id="m-cpc" style="color:var(--ouro)">—</p><p class="ext">custo por clique</p></div><div class="metakpi"><p class="rot">CPL real (Meta)</p><p class="num" id="m-cpl" style="color:var(--verde)">—</p><p class="ext">investido ÷ leads do CRM</p></div><div class="metakpi"><p class="rot">CPLQ (qualificado)</p><p class="num" id="m-cplq" style="color:var(--verde)">—</p><p class="ext">investido ÷ qualificados</p></div><div class="metakpi"><p class="rot">Clique → Lead</p><p class="num" id="m-conv" style="color:var(--laranja)">—</p><p class="ext">taxa de conversão</p></div></div></div>
+  <div class="kpis"><div class="kpi"><p class="rot">Leads no período</p><p class="num" id="k-total" style="color:var(--azul)">0</p><p class="extra" id="k-total-extra"></p></div><div class="kpi"><p class="rot">Qualificados</p><p class="num" id="k-qual" style="color:var(--verde)">0</p><p class="extra">completaram o quiz</p></div><div class="kpi"><p class="rot">Taxa de conclusão</p><p class="num" id="k-taxa" style="color:var(--ouro)">0%</p><p class="extra">qualificados ÷ leads</p></div><div class="kpi"><p class="rot">Não finalizaram</p><p class="num" id="k-parc" style="color:var(--laranja)">0</p><p class="extra">pararam no meio — vale resgatar</p></div><div class="kpi"><p class="rot">Em negociação</p><p class="num" id="k-neg" style="color:var(--roxo)">0</p><p class="extra">status atual na pipeline</p></div><div class="kpi"><p class="rot">Perdidos</p><p class="num" id="k-perd" style="color:var(--vermelho)">0</p><p class="extra" id="k-perd-extra">no período</p></div></div>
+  <div class="cpl"><div><p class="rot">Investimento no período (R$)</p><input type="number" id="invest" placeholder="Ex.: 1500" min="0" step="50"></div><div class="res"><div class="ouro"><span class="rot">CPL (custo por lead)</span><b id="r-cpl">—</b></div><div class="verde"><span class="rot">CPL qualificado</span><b id="r-cplq">—</b></div></div><small>Digite o valor investido no Meta no período filtrado.</small></div>
+  <div class="painel"><h3>Leads por dia</h3><div class="chart" id="chart"></div><div class="legenda"><span><i style="background:rgba(26,111,168,.55)"></i>Leads</span><span><i style="background:var(--verde)"></i>Qualificados</span></div></div>
+  <div class="grid2"><div class="painel"><h3>Faixa de conta de luz</h3><div id="faixas"></div></div><div class="painel"><h3>Top cidades</h3><div id="cidades"></div></div></div>
+  <div class="grid2"><div class="painel"><h3>Status na pipeline</h3><div id="statusbars"></div></div><div class="painel"><h3>Motivos de perda</h3><div id="motivos-dash"></div></div></div>
   <div class="painel"><h3>Leads por vendedor</h3><div id="vendedores-dash"></div></div>
 </main>
 </section>
-
 <section id="vista-vend" class="vista">
 <main>
   <div class="vend-card">
@@ -340,813 +236,97 @@ h1 span{color:var(--laranja)}
   <p style="font-size:.78rem;color:var(--cinza);margin-top:-8px">Os vendedores cadastrados aparecem como opção ao atribuir um lead.</p>
 </main>
 </section>
-<div id="overlay-motivo">
-  <div id="modal-motivo">
-    <h2>Marcar como Perdido</h2>
-    <p class="mp">Qual o motivo? Isso alimenta o Dashboard para identificar padrões.</p>
-    <div class="motivos" id="lista-motivos"></div>
-    <input type="text" id="mot-outro" placeholder="Descreva o motivo...">
-    <div class="mot-botoes">
-      <button class="mot-cancelar" onclick="cancelarPerda()">Cancelar</button>
-      <button class="mot-confirmar" id="mot-ok" disabled onclick="confirmarPerda()">Confirmar perda</button>
-    </div>
-  </div>
-</div>
-
-
-<div id="overlay-import" onclick="if(event.target===this)fecharImport()">
-  <div id="modal-import">
-    <button class="fechar" onclick="fecharImport()">✕</button>
-    <h2>📊 Importar dados do Meta Ads</h2>
-    <p class="mp">Baixe o relatório do Meta Ads e arraste o arquivo CSV aqui. O sistema vai cruzar com os leads do CRM no mesmo período e calcular CPL, CPC, CTR e taxa de conversão automaticamente.</p>
-
-    <details class="como-baixar">
-      <summary>📥 Como baixar o CSV no Meta Ads (clique pra abrir)</summary>
-      <ol>
-        <li>Entre no <b>Gerenciador de Anúncios</b> (adsmanager.facebook.com)</li>
-        <li>Selecione o período desejado no canto superior direito</li>
-        <li>Clique em <b>"Relatórios"</b> → <b>"Exportar dados da tabela"</b></li>
-        <li>Escolha <b>CSV (.csv)</b> e clique em Exportar</li>
-        <li>Volte aqui e arraste o arquivo baixado</li>
-      </ol>
-      <p style="margin-top:8px"><b>Dica:</b> O importador detecta automaticamente colunas em PT-BR e EN-US.</p>
-    </details>
-
-    <label class="dropzone" id="dropzone" for="csv-input">
-      <div class="icone">📁</div>
-      <p><b style="color:#fff">Clique para escolher</b> ou arraste o CSV aqui</p>
-      <p style="font-size:.75rem;margin-top:4px">Formatos aceitos: .csv</p>
-    </label>
-    <input type="file" id="csv-input" accept=".csv,text/csv">
-
-    <div class="preview" id="preview"></div>
-
-    <div class="import-botoes">
-      <button class="btn-cancel" onclick="fecharImport()">Cancelar</button>
-      <button class="btn-importar" id="btn-importar" disabled onclick="confirmarImport()">Importar dados</button>
-    </div>
-  </div>
-</div>
-
-<div id="overlay" onclick="if(event.target===this)fecharModal()">
-  <div id="modal"></div>
-</div>
-
+<div id="overlay-motivo"><div id="modal-motivo"><h2>Marcar como Perdido</h2><p class="mp">Qual o motivo?</p><div class="motivos" id="lista-motivos"></div><input type="text" id="mot-outro" placeholder="Descreva o motivo..."><div class="mot-botoes"><button class="mot-cancelar" onclick="cancelarPerda()">Cancelar</button><button class="mot-confirmar" id="mot-ok" disabled onclick="confirmarPerda()">Confirmar perda</button></div></div></div>
+<div id="overlay-import" onclick="if(event.target===this)fecharImport()"><div id="modal-import"><button class="fechar" onclick="fecharImport()">✕</button><h2>📊 Importar dados do Meta Ads</h2><p class="mp">Baixe o relatório do Meta Ads e arraste o arquivo CSV aqui.</p><details class="como-baixar"><summary>📥 Como baixar o CSV no Meta Ads</summary><ol><li>Entre no <b>Gerenciador de Anúncios</b></li><li>Selecione o período desejado</li><li>Clique em <b>Relatórios</b> → <b>Exportar dados da tabela</b></li><li>Escolha <b>CSV (.csv)</b> e clique em Exportar</li><li>Arraste o arquivo aqui</li></ol></details><label class="dropzone" id="dropzone" for="csv-input"><div class="icone">📁</div><p><b style="color:#fff">Clique para escolher</b> ou arraste o CSV aqui</p></label><input type="file" id="csv-input" accept=".csv,text/csv"><div class="preview" id="preview"></div><div class="import-botoes"><button class="btn-cancel" onclick="fecharImport()">Cancelar</button><button class="btn-importar" id="btn-importar" disabled onclick="confirmarImport()">Importar dados</button></div></div></div>
+<div id="overlay" onclick="if(event.target===this)fecharModal()"><div id="modal"></div></div>
 <script>
-/* ════════════════ CONFIGURAÇÃO ════════════════
-   Use os MESMOS valores do wm-quiz.html.
-   Vazio ("") = MODO DEMO (lê leads salvos neste navegador). */
-const SUPABASE_URL  = "https://mztmbhrtsczdwxahxrdk.supabase.co";
-const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im16dG1iaHJ0c2N6ZHd4YWh4cmRrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExODEzMzAsImV4cCI6MjA5Njc1NzMzMH0.X0JVNJ_4sKmL48gtM-rzYKtN6zf0Op-n5syfU7MXYEA";
-const SENHA_ACESSO  = "wm@adm2026";
-/* ═══════════════════════════════════════════════ */
-
-const COLUNAS = [
-  { nome:'Novo lead',                 cor:'#F5C518' },
-  { nome:'Em andamento',              cor:'#E87B1E' },
-  { nome:'Em contato',                cor:'#1A6FA8' },
-  { nome:'Qualificado Para Proposta', cor:'#A855F7' },
-  { nome:'Negociação',                cor:'#22C55E' },
-  { nome:'Perdido',                   cor:'#F87171' },
-];
-const MOTIVOS_PERDA = ['Preço / achou caro','Fechou com concorrente','Financiamento negado','Desistiu / vai adiar','Não responde / sem contato','Fora da área de atendimento'];
-const CORES_FAIXA = ['#1A6FA8','#2E86C1','#F5C518','#E87B1E','#FF9A3D','#F87171'];
-const demo = !SUPABASE_URL;
-const H = () => ({ 'apikey': SUPABASE_ANON, 'Authorization': 'Bearer ' + SUPABASE_ANON, 'Content-Type': 'application/json' });
-let leads = [], filtroDias = 30, intervalo = null;
-
-/* ---------- login / abas ---------- */
-function entrar(){
-  if(document.getElementById('senha').value === SENHA_ACESSO){
-    sessionStorage.setItem('wm_crm_ok','1');
-    document.getElementById('login').style.display='none';
-    carregar();
-  } else document.getElementById('erro').style.display='block';
-}
-function sair(){ sessionStorage.removeItem('wm_crm_ok'); location.reload(); }
-if(sessionStorage.getItem('wm_crm_ok')==='1') document.getElementById('login').style.display='none';
-
-function trocarAba(btn){
-  document.querySelectorAll('.aba').forEach(a=>a.classList.remove('ativa'));
-  btn.classList.add('ativa');
-  document.querySelectorAll('.vista').forEach(v=>v.classList.remove('ativa'));
-  document.getElementById('vista-'+btn.dataset.vista).classList.add('ativa');
-  if(btn.dataset.vista==='vend') renderVendedores();
-}
-
-/* ---------- dados ---------- */
-async function carregar(){
-  if(demo){
-    document.getElementById('tagDemo').style.display='inline-flex';
-    leads = JSON.parse(localStorage.getItem('wm_leads')||'[]');
-  } else {
-    try{
-      const r = await fetch(SUPABASE_URL+'/rest/v1/leads?select=*&order=created_at.desc',{headers:H()});
-      leads = await r.json();
-      if(!Array.isArray(leads)) leads = [];
-    }catch(e){ console.error(e); leads=[]; }
-  }
-  renderPipeline(); renderDash();
-}
-
-async function excluirLead(id){
-  const l = leads.find(x=>String(x.id)===String(id));
-  const nome = l?.nome || 'este lead';
-  if(!confirm(`Excluir ${nome}?\n\nEssa ação não pode ser desfeita.`)) return;
-  if(demo){
-    leads = leads.filter(x=>String(x.id)!==String(id));
-    localStorage.setItem('wm_leads', JSON.stringify(leads));
-  } else {
-    try{
-      await fetch(`${SUPABASE_URL}/rest/v1/leads?id=eq.${id}`,{method:'DELETE',headers:H()});
-      leads = leads.filter(x=>String(x.id)!==String(id));
-    }catch(e){ console.error(e); alert('Erro ao excluir. Tente novamente.'); return; }
-  }
-  renderPipeline(); renderDash();
-}
-
-async function mudarStatus(id, status){
-  if(status === 'Perdido'){ abrirMotivo(id); return; }
-  const l = leads.find(x=>String(x.id)===String(id)); if(l) l.status = status;
-  if(demo){
-    localStorage.setItem('wm_leads', JSON.stringify(leads));
-  } else {
-    try{
-      await fetch(`${SUPABASE_URL}/rest/v1/leads?id=eq.${id}`,{method:'PATCH',headers:H(),body:JSON.stringify({status})});
-    }catch(e){ console.error(e); }
-  }
-  renderPipeline(); renderDash();
-}
-
-/* ---------- helpers ---------- */
-const esc = s => String(s??'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const fone = w => String(w??'').replace(/\D/g,'');
-const dataBr = d => d ? new Date(d).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}) : '';
-const brl = n => 'R$ ' + n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
-
-/* ════════ PIPELINE ════════ */
-/* ════ VENDEDORES ════ */
-const VEND_KEY = 'wm_vendedores';
-
-function getVendedores() {
-  try { return JSON.parse(localStorage.getItem(VEND_KEY) || '[]'); } catch(e) { return []; }
-}
-function saveVendedores(lista) {
-  localStorage.setItem(VEND_KEY, JSON.stringify(lista));
-}
-
-function adicionarVendedor() {
-  const input = document.getElementById('vend-input');
-  const nome = input.value.trim();
-  if (!nome) return;
-  const lista = getVendedores();
-  if (lista.some(v => v.toLowerCase() === nome.toLowerCase())) {
-    alert('Vendedor já cadastrado!'); return;
-  }
-  lista.push(nome);
-  saveVendedores(lista);
-  input.value = '';
-  renderVendedores();
-}
-
-function removerVendedor(nome) {
-  if (!confirm(`Remover "${nome}"?`)) return;
-  const lista = getVendedores().filter(v => v !== nome);
-  saveVendedores(lista);
-  renderVendedores();
-}
-
-function renderVendedores() {
-  const lista = getVendedores();
-  const el = document.getElementById('vend-lista');
-  if (!el) return;
-  if (!lista.length) {
-    el.innerHTML = '<p class="vend-empty">Nenhum vendedor cadastrado ainda.</p>';
-    return;
-  }
-  el.innerHTML = lista.map(v => `
-    <div class="vend-item">
-      <span>👤 ${esc(v)}</span>
-      <button onclick="removerVendedor('${esc(v)}')" title="Remover">✕</button>
-    </div>`).join('');
-}
-
-function montarOpcoesVendedor(atual) {
-  const lista = getVendedores();
-  const opts = ['<option value="">— Sem vendedor —</option>'];
-  lista.forEach(v => {
-    const sel = (v === atual) ? 'selected' : '';
-    opts.push(`<option value="${esc(v)}" ${sel}>${esc(v)}</option>`);
-  });
-  // se o vendedor atual não está na lista, adiciona mesmo assim
-  if (atual && !lista.includes(atual)) {
-    opts.push(`<option value="${esc(atual)}" selected>${esc(atual)} (não cadastrado)</option>`);
-  }
-  return opts.join('');
-}
-
-function filtrarPipe(btn) {
-  document.querySelectorAll('.chip[data-pipe-dias]').forEach(b => b.classList.remove('ativo'));
-  btn.classList.add('ativo');
-  filtroPipeDias = Number(btn.dataset.pipeDias);
-  renderPipeline();
-}
-
-function leadsDoPipe() {
-  if (filtroPipeDias === -1) return leads;
-  const fim = new Date(); fim.setHours(23,59,59,999);
-  const ini = new Date(); ini.setHours(0,0,0,0);
-  if (filtroPipeDias > 0) ini.setDate(ini.getDate() - (filtroPipeDias - 1));
-  return leads.filter(l => {
-    if (!l.created_at) return filtroPipeDias === 0;
-    const d = new Date(l.created_at);
-    return d >= ini && d <= fim;
-  });
-}
-
-function exportarExcel() {
-  const fl = leadsDoPipe();
-  if (!fl.length) { alert('Nenhum lead no filtro atual para exportar.'); return; }
-  const cols = ['Nome','WhatsApp','Vendedor','Cidade','Conta de luz','Aparelhos','Pagamento','Prazo','Dia visita','Horário','Status','Motivo perda','Qualificado','Recebido em'];
-  const rows = fl.map(l => [
-    l.nome||'', l.whatsapp||'', l.vendedor||'', l.cidade||'',
-    l.conta_luz||'', l.aparelhos||'', l.forma_pagamento||'',
-    l.prazo||'', l.dia_visita||'', l.periodo_visita||'',
-    l.status||'', l.motivo_perda||'',
-    l.qualificado ? 'Sim' : 'Não',
-    l.created_at ? new Date(l.created_at).toLocaleString('pt-BR') : ''
-  ]);
-  // Montar CSV com BOM para Excel reconhecer UTF-8
-  const esc = v => '"' + String(v).replace(/"/g, '""') + '"';
-  const csv = '\uFEFF' + [cols, ...rows].map(r => r.map(esc).join(';')).join('\r\n');
-  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  const label = filtroPipeDias === -1 ? 'todos' : filtroPipeDias === 0 ? 'hoje' : filtroPipeDias + 'dias';
-  a.href = url; a.download = `leads_wm_${label}_${new Date().toLocaleDateString('pt-BR').replace(/\//g,'-')}.csv`;
-  a.click(); URL.revokeObjectURL(url);
-}
-
-function renderPipeline(){
-  const board = document.getElementById('board');
-  board.innerHTML = '';
-  COLUNAS.forEach(col=>{
-    const itens = leads.filter(l=>(l.status||'Novo lead')===col.nome);
-    const div = document.createElement('div');
-    div.className='col';
-    div.innerHTML = `
-      <div class="col-head">
-        <h3 style="color:${col.cor}">${col.nome}</h3>
-        <span class="contador" style="background:${col.cor}22;color:${col.cor}">${itens.length}</span>
-      </div>
-      ${itens.length===0 ? '<div class="vazio">Sem leads aqui</div>' : itens.map(cardHTML).join('')}
-    `;
-    board.appendChild(div);
-  });
-  document.querySelectorAll('.lead').forEach(el=>{
-    el.addEventListener('click', e=>{ if(e.target.tagName!=='SELECT' && e.target.tagName!=='A') abrirModal(el.dataset.id); });
-  });
-  document.querySelectorAll('.lead select').forEach(s=>{
-    s.addEventListener('change', ()=> mudarStatus(s.dataset.id, s.value));
-  });
-  document.querySelectorAll('.lead .excluir').forEach(b=>{
-    b.addEventListener('click', e=>{
-      e.stopPropagation();
-      excluirLead(b.dataset.del);
-    });
-  });
-}
-
-function cardHTML(l){
-  const linhas = [
-    l.cidade          ? `📍 <b>${esc(l.cidade)}</b>` : '',
-    l.conta_luz       ? `💡 <b>${esc(l.conta_luz)}</b>` : '',
-    l.forma_pagamento ? `🏦 ${esc(l.forma_pagamento)}` : '',
-    l.prazo           ? `⏱ ${esc(l.prazo)}` : '',
-    (l.dia_visita||l.periodo_visita) ? `📅 Visita: ${esc(l.dia_visita||'')} ${esc(l.periodo_visita||'')}` : '',
-    l.aparelhos       ? `⚡ ${esc(l.aparelhos)}` : '',
-    (l.status==='Perdido' && l.motivo_perda) ? `<span style="color:var(--vermelho)">❌ ${esc(l.motivo_perda)}</span>` : '',
-    l.vendedor        ? `👤 <b style="color:var(--ouro)">${esc(l.vendedor)}</b>` : '',
-  ].filter(Boolean).join('<br>');
-  return `
-  <div class="lead" data-id="${esc(l.id)}">
-    <button class="excluir" data-del="${esc(l.id)}" title="Excluir lead">✕</button>
-    <h4>${esc(l.nome||'Sem nome')}</h4>
-    ${l.qualificado ? '<span class="badge q">✅ Qualificado</span>' : '<span class="badge p">⏳ Não finalizou</span>'}
-    <div class="info">
-      ${l.whatsapp ? `📱 <a href="https://wa.me/55${fone(l.whatsapp)}" target="_blank" style="color:#4ADE80;text-decoration:none">${esc(l.whatsapp)}</a><br>`:''}
-      ${linhas}
-    </div>
-    <select data-id="${esc(l.id)}">
-      ${COLUNAS.map(c=>`<option ${ (l.status||'Novo lead')===c.nome?'selected':'' }>${c.nome}</option>`).join('')}
-    </select>
-    <div class="data">${dataBr(l.created_at)}</div>
-  </div>`;
-}
-
-function abrirModal(id){
-  const l = leads.find(x=>String(x.id)===String(id)); if(!l) return;
-  const campos = [
-    ['Nome', l.nome], ['WhatsApp', l.whatsapp], ['Vendedor', l.vendedor], ['Conta de luz', l.conta_luz],
-    ['Aparelhos/aumento de consumo', l.aparelhos], ['Cidade', l.cidade],
-    ['Forma de pagamento', l.forma_pagamento], ['Prazo', l.prazo],
-    ['Dia da visita', l.dia_visita], ['Período da visita', l.periodo_visita],
-    ['Status', l.status], ['Motivo da perda', l.motivo_perda], ['Qualificado', l.qualificado?'Sim':'Não'],
-    ['Recebido em', dataBr(l.created_at)]
-  ];
-  document.getElementById('modal').innerHTML = `
-    <button class="fechar" onclick="fecharModal()">✕</button>
-    <h2>${esc(l.nome||'Lead')}</h2>
-    <p class="mp">Detalhes completos do lead</p>
-    <div class="m-acoes">
-      <a class="m-zap" href="https://wa.me/55${fone(l.whatsapp)}" target="_blank">💬 Abrir WhatsApp</a>
-      <button class="m-copiar" onclick="copiarTudo('${esc(l.id)}')">⧉ Copiar tudo</button>
-      <button class="m-copiar" onclick="excluirLead('${esc(l.id)}'); fecharModal()" style="border-color:rgba(248,113,113,.4);color:var(--vermelho)">🗑️ Excluir</button>
-    </div>
-    <p class="m-label">Status</p>
-    <select onchange="mudarStatus('${esc(l.id)}', this.value); fecharModal()">
-      ${COLUNAS.map(c=>`<option ${ (l.status||'Novo lead')===c.nome?'selected':'' }>${c.nome}</option>`).join('')}
-    </select>
-    <div class="v-wrap">
-      <p class="m-label">Vendedor responsável</p>
-      <select class="v-select" id="v-select" onchange="salvarVendedor('${esc(l.id)}',this.value)">${montarOpcoesVendedor(l.vendedor)}</select>
-      <p class="v-salvo" id="v-salvo">✓ Salvo</p>
-    </div>
-    <div class="tabela">
-      ${campos.filter(c=>c[1]).map(c=>`<div class="linha"><span class="k">${c[0]}</span><span class="v">${esc(c[1])}</span></div>`).join('')}
-    </div>`;
-  document.getElementById('overlay').style.display='flex';
-}
-function fecharModal(){ document.getElementById('overlay').style.display='none'; }
-/* ---- fluxo de perda com motivo ---- */
-let perdaId = null, motivoSel = null;
-function abrirMotivo(id){
-  perdaId = id; motivoSel = null;
-  fecharModal();
-  document.getElementById('lista-motivos').innerHTML = MOTIVOS_PERDA
-    .map(m=>`<button class="mot" data-m="${esc(m)}">${esc(m)}</button>`).join('')
-    + '<button class="mot" data-outro="1">Outro motivo...</button>';
-  document.getElementById('mot-outro').style.display='none';
-  document.getElementById('mot-outro').value='';
-  document.getElementById('mot-ok').disabled = true;
-  document.querySelectorAll('#lista-motivos .mot').forEach(b=>{
-    b.addEventListener('click', ()=>{
-      document.querySelectorAll('#lista-motivos .mot').forEach(x=>x.classList.remove('sel'));
-      b.classList.add('sel');
-      const outro = document.getElementById('mot-outro');
-      if(b.dataset.outro){ outro.style.display='block'; outro.focus(); motivoSel=null; validarMotivo(); }
-      else { outro.style.display='none'; motivoSel = b.dataset.m; document.getElementById('mot-ok').disabled = false; }
-    });
-  });
-  document.getElementById('overlay-motivo').style.display='flex';
-}
-function validarMotivo(){
-  document.getElementById('mot-ok').disabled = document.getElementById('mot-outro').value.trim().length < 3;
-}
-document.getElementById('mot-outro').addEventListener('input', validarMotivo);
-function cancelarPerda(){
-  document.getElementById('overlay-motivo').style.display='none';
-  perdaId = null;
-  renderPipeline(); // restaura os selects
-}
-async function confirmarPerda(){
-  const motivo = motivoSel || document.getElementById('mot-outro').value.trim();
-  if(!motivo || !perdaId) return;
-  const l = leads.find(x=>String(x.id)===String(perdaId));
-  if(l){ l.status = 'Perdido'; l.motivo_perda = motivo; }
-  if(demo){
-    localStorage.setItem('wm_leads', JSON.stringify(leads));
-  } else {
-    try{
-      await fetch(`${SUPABASE_URL}/rest/v1/leads?id=eq.${perdaId}`,{method:'PATCH',headers:H(),body:JSON.stringify({status:'Perdido', motivo_perda:motivo})});
-    }catch(e){ console.error(e); }
-  }
-  document.getElementById('overlay-motivo').style.display='none';
-  perdaId = null;
-  renderPipeline(); renderDash();
-}
-
-function copiarTudo(id){
-  const l = leads.find(x=>String(x.id)===String(id)); if(!l) return;
-  const txt = `Nome: ${l.nome||''}\nWhatsApp: ${l.whatsapp||''}\nVendedor: ${l.vendedor||''}\nConta de luz: ${l.conta_luz||''}\nAparelhos: ${l.aparelhos||''}\nCidade: ${l.cidade||''}\nForma de pagamento: ${l.forma_pagamento||''}\nPrazo: ${l.prazo||''}\nVisita: ${l.dia_visita||''} ${l.periodo_visita||''}\nStatus: ${l.status||''}`;
-  navigator.clipboard.writeText(txt);
-}
-
-/* ════════ DASHBOARD ════════ */
-function periodo(){
-  if(intervalo) return intervalo;
-  if(filtroDias === -1) return [null, null];
-  const fim = new Date(); fim.setHours(23,59,59,999);
-  const ini = new Date(); ini.setHours(0,0,0,0);
-  if(filtroDias > 0) ini.setDate(ini.getDate() - (filtroDias - 1));
-  return [ini, fim];
-}
-function aplicarPersonalizado(){
-  const i = document.getElementById('d-ini').value, f = document.getElementById('d-fim').value;
-  if(!i || !f) return;
-  intervalo = [new Date(i+'T00:00:00'), new Date(f+'T23:59:59')];
-  document.querySelectorAll('.chip[data-dias]').forEach(c=>c.classList.remove('ativo'));
-  renderDash();
-}
-document.querySelectorAll('.chip[data-dias]').forEach(c=>{
-  c.addEventListener('click', ()=>{
-    document.querySelectorAll('.chip[data-dias]').forEach(x=>x.classList.remove('ativo'));
-    c.classList.add('ativo');
-    filtroDias = Number(c.dataset.dias); intervalo = null;
-    renderDash();
-  });
-});
-
-
-/* ════════ META ADS — Import CSV ════════ */
-let metaPreview = null;
-
-function abrirImport(){
-  document.getElementById('overlay-import').style.display='flex';
-  document.getElementById('csv-input').value='';
-  document.getElementById('preview').className='preview';
-  document.getElementById('preview').innerHTML='';
-  document.getElementById('btn-importar').disabled = true;
-  metaPreview = null;
-}
-function fecharImport(){
-  document.getElementById('overlay-import').style.display='none';
-}
-
-document.getElementById('csv-input').addEventListener('change', e => processarArquivo(e.target.files[0]));
-const dz = document.getElementById('dropzone');
-dz.addEventListener('dragover', e=>{ e.preventDefault(); dz.classList.add('drag'); });
-dz.addEventListener('dragleave', ()=> dz.classList.remove('drag'));
-dz.addEventListener('drop', e=>{
-  e.preventDefault(); dz.classList.remove('drag');
-  if(e.dataTransfer.files.length) processarArquivo(e.dataTransfer.files[0]);
-});
-
-function parseCSV(texto){
-  // detecta separador (vírgula ou ponto-vírgula)
-  const linha1 = texto.split('\n')[0];
-  const sep = (linha1.match(/;/g)||[]).length > (linha1.match(/,/g)||[]).length ? ';' : ',';
-  const linhas = texto.replace(/^\uFEFF/,'').split(/\r?\n/).filter(l=>l.trim());
-  const parse = l => {
-    const r = []; let cur=''; let dent=false;
-    for(let i=0;i<l.length;i++){
-      const c = l[i];
-      if(c==='"'){ if(dent && l[i+1]==='"'){ cur+='"'; i++; } else dent=!dent; }
-      else if(c===sep && !dent){ r.push(cur); cur=''; }
-      else cur+=c;
-    }
-    r.push(cur);
-    return r;
-  };
-  const cab = parse(linhas[0]).map(s=>s.trim().toLowerCase());
-  return linhas.slice(1).map(l=>{
-    const v = parse(l);
-    const o = {};
-    cab.forEach((k,i)=> o[k]=(v[i]||'').trim());
-    return o;
-  });
-}
-
-function numero(s){
-  if(!s) return 0;
-  // aceita "1.234,56" e "1,234.56"
-  let v = String(s).replace(/[^\d,.\-]/g,'').trim();
-  if(v.includes(',') && v.includes('.')){
-    if(v.lastIndexOf(',') > v.lastIndexOf('.')) v = v.replace(/\./g,'').replace(',','.');
-    else v = v.replace(/,/g,'');
-  } else if(v.includes(',')){
-    v = v.replace(',','.');
-  }
-  const n = parseFloat(v);
-  return isNaN(n) ? 0 : n;
-}
-
-// mapeamento de nomes de coluna PT/EN do Meta Ads
-const COLS = {
-  gasto:        ['valor usado (brl)','valor gasto (brl)','valor usado','valor gasto','amount spent (brl)','amount spent','spend'],
-  impressoes:   ['impressões','impressoes','impressions'],
-  cliques:      ['cliques (todos)','cliques','clicks (all)','clicks','link clicks'],
-  data_ini:     ['início dos relatórios','inicio dos relatorios','reporting starts','date start','dia'],
-  data_fim:     ['término dos relatórios','termino dos relatorios','reporting ends','date stop'],
-  ctr:          ['ctr (todos)','ctr','ctr (all)'],
-  cpc:          ['cpc (todos)','cpc','cpc (all)']
-};
-function acharCol(linha, possiveis){
-  for(const p of possiveis) if(linha[p] !== undefined) return p;
-  // fuzzy: procura uma chave que contenha o nome
-  for(const p of possiveis){
-    const k = Object.keys(linha).find(k => k.replace(/[^a-z]/g,'').includes(p.replace(/[^a-z]/g,'')));
-    if(k) return k;
-  }
-  return null;
-}
-
-function processarArquivo(file){
-  if(!file) return;
-  const prev = document.getElementById('preview');
-  prev.className='preview ativo';
-  prev.innerHTML = '<p class="det">⏳ Lendo arquivo...</p>';
-  const r = new FileReader();
-  r.onload = () => {
-    try{
-      const dados = parseCSV(r.result);
-      if(!dados.length) throw new Error('CSV vazio ou sem linhas de dados');
-      const am = dados[0];
-      const cG = acharCol(am, COLS.gasto);
-      const cI = acharCol(am, COLS.impressoes);
-      const cC = acharCol(am, COLS.cliques);
-      const cDi = acharCol(am, COLS.data_ini);
-      const cDf = acharCol(am, COLS.data_fim);
-      if(!cG) throw new Error('Não encontrei a coluna de "Valor gasto". Confira se exportou as colunas certas no Meta.');
-
-      // soma os valores de todas as linhas (cada linha pode ser uma campanha/conjunto/anúncio)
-      let gasto=0, imp=0, cli=0;
-      let dataIni = null, dataFim = null;
-      dados.forEach(l=>{
-        gasto += numero(l[cG]);
-        if(cI) imp += numero(l[cI]);
-        if(cC) cli += numero(l[cC]);
-        if(cDi && l[cDi]){
-          const d = parseData(l[cDi]);
-          if(d && (!dataIni || d < dataIni)) dataIni = d;
-        }
-        if(cDf && l[cDf]){
-          const d = parseData(l[cDf]);
-          if(d && (!dataFim || d > dataFim)) dataFim = d;
-        }
-      });
-
-      metaPreview = {
-        gasto, impressoes:imp, cliques:cli,
-        data_ini: dataIni ? dataIni.toISOString() : null,
-        data_fim: dataFim ? dataFim.toISOString() : null,
-        linhas: dados.length,
-        importado_em: new Date().toISOString()
-      };
-
-      prev.innerHTML = `
-        <p class="ok">✓ Arquivo lido com sucesso</p>
-        <div class="det">
-          <b>${dados.length}</b> ${dados.length===1?'linha lida':'linhas lidas'}<br>
-          Total investido: <b>${brl(gasto)}</b><br>
-          ${imp?`Impressões: <b>${imp.toLocaleString('pt-BR')}</b><br>`:''}
-          ${cli?`Cliques: <b>${cli.toLocaleString('pt-BR')}</b><br>`:''}
-          ${dataIni?`Período: <b>${dataIni.toLocaleDateString('pt-BR')} a ${(dataFim||dataIni).toLocaleDateString('pt-BR')}</b>`:'<i>Período não detectado — vai usar o filtro atual do Dashboard</i>'}
-        </div>`;
-      document.getElementById('btn-importar').disabled = false;
-    }catch(e){
-      prev.innerHTML = `<p class="err">✗ Erro ao ler o arquivo</p><div class="det">${e.message}</div>`;
-      document.getElementById('btn-importar').disabled = true;
-    }
-  };
-  r.readAsText(file, 'UTF-8');
-}
-
-function parseData(s){
-  if(!s) return null;
-  // tenta DD/MM/AAAA, AAAA-MM-DD, MM/DD/AAAA
-  const m1 = s.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})$/);
-  if(m1){
-    const a=Number(m1[3]<100?2000+Number(m1[3]):m1[3]);
-    // BR padrão: dia/mês
-    if(Number(m1[1])>12) return new Date(a, Number(m1[2])-1, Number(m1[1]));
-    return new Date(a, Number(m1[2])-1, Number(m1[1]));
-  }
-  const m2 = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
-  if(m2) return new Date(Number(m2[1]), Number(m2[2])-1, Number(m2[3]));
-  return null;
-}
-
-function confirmarImport(){
-  if(!metaPreview) return;
-  localStorage.setItem('wm_meta_dados', JSON.stringify(metaPreview));
-  fecharImport();
-  renderMeta();
-}
-
-function limparMeta(){
-  if(!confirm('Remover dados do Meta importados?')) return;
-  localStorage.removeItem('wm_meta_dados');
-  renderMeta();
-}
-
-function renderMeta(){
-  const raw = localStorage.getItem('wm_meta_dados');
-  const box = document.getElementById('metabox');
-  if(!raw){ box.classList.remove('ativo'); return; }
-  const m = JSON.parse(raw);
-  box.classList.add('ativo');
-
-  // se o CSV tem datas, filtra leads pelo período do CSV; senão usa o filtro atual
-  let fl;
-  if(m.data_ini && m.data_fim){
-    const di = new Date(m.data_ini), df = new Date(m.data_fim);
-    df.setHours(23,59,59,999);
-    fl = leads.filter(l=>{
-      if(!l.created_at) return false;
-      const d = new Date(l.created_at);
-      return d >= di && d <= df;
-    });
-    document.getElementById('meta-periodo').textContent =
-      `${di.toLocaleDateString('pt-BR')} a ${df.toLocaleDateString('pt-BR')}`;
-  } else {
-    const [ini, fim] = periodo();
-    fl = leads.filter(l=>{
-      if(!l.created_at) return true;
-      const d = new Date(l.created_at);
-      return (!ini || d >= ini) && (!fim || d <= fim);
-    });
-    document.getElementById('meta-periodo').textContent = '(usando filtro do Dashboard)';
-  }
-
-  const total = fl.length;
-  const qual = fl.filter(l=>l.qualificado).length;
-
-  document.getElementById('m-gasto').textContent = brl(m.gasto);
-  document.getElementById('m-gasto-ext').textContent = `${m.linhas} ${m.linhas===1?'linha':'linhas'} do CSV`;
-  document.getElementById('m-imp').textContent = m.impressoes ? m.impressoes.toLocaleString('pt-BR') : '—';
-  document.getElementById('m-cliques').textContent = m.cliques ? m.cliques.toLocaleString('pt-BR') : '—';
-  document.getElementById('m-ctr').textContent = (m.impressoes && m.cliques) ? (m.cliques/m.impressoes*100).toFixed(2)+'%' : '—';
-  document.getElementById('m-cpc').textContent = (m.cliques && m.gasto) ? brl(m.gasto/m.cliques) : '—';
-  document.getElementById('m-cpl').textContent = (total && m.gasto) ? brl(m.gasto/total) : (total ? 'R$ 0,00' : '—');
-  document.getElementById('m-cplq').textContent = (qual && m.gasto) ? brl(m.gasto/qual) : (qual ? 'R$ 0,00' : '—');
-  document.getElementById('m-conv').textContent = (m.cliques && total) ? (total/m.cliques*100).toFixed(2)+'%' : '—';
-}
-
-async function salvarVendedor(id, valor) {
-  const vendedor = valor.trim();
-  const l = leads.find(x => String(x.id) === String(id));
-  if (l) l.vendedor = vendedor;
-  // mostrar feedback
-  const el = document.getElementById('v-salvo');
-  if (el) { el.style.display = 'block'; setTimeout(() => { if(el) el.style.display = 'none'; }, 2000); }
-  if (demo) {
-    localStorage.setItem('wm_leads', JSON.stringify(leads));
-  } else {
-    try {
-      await fetch(`${SUPABASE_URL}/rest/v1/leads?id=eq.${id}`, {
-        method: 'PATCH', headers: H(), body: JSON.stringify({ vendedor })
-      });
-    } catch(e) { console.warn('Erro ao salvar vendedor:', e.message); }
-  }
-  renderPipeline();
-  renderDash();
-}
-
-function desenharVendedores(fl) {
-  const el = document.getElementById('vendedores-dash');
-  const com = fl.filter(l => l.vendedor && l.vendedor.trim());
-  if (!com.length) { el.innerHTML = '<p class="vazio-msg">Nenhum lead com vendedor atribuído ainda</p>'; return; }
-  const cont = {};
-  com.forEach(l => {
-    const v = l.vendedor.trim();
-    if (!cont[v]) cont[v] = { total: 0, qualificados: 0, negociacao: 0 };
-    cont[v].total++;
-    if (l.qualificado) cont[v].qualificados++;
-    if (l.status === 'Negociação') cont[v].negociacao++;
-  });
-  const max = Math.max(...Object.values(cont).map(v => v.total));
-  el.innerHTML = Object.entries(cont)
-    .sort((a, b) => b[1].total - a[1].total)
-    .map(([nome, d]) => {
-      const pct = Math.round(d.total / max * 100);
-      const conv = d.total ? Math.round(d.qualificados / d.total * 100) : 0;
-      return `<div class="hbar">
-        <div class="topo">
-          <span>👤 <b style="color:#fff">${esc(nome)}</b></span>
-          <span class="v" style="display:flex;gap:14px;font-size:.75rem">
-            <span style="color:var(--azul)">${d.total} leads</span>
-            <span style="color:var(--verde)">${d.qualificados} qualif.</span>
-            <span style="color:var(--roxo)">${d.negociacao} negoc.</span>
-            <span style="color:var(--ouro)">${conv}% conv.</span>
-          </span>
-        </div>
-        <div class="trilho"><div style="width:${pct}%;background:linear-gradient(90deg,var(--azul),var(--ouro))"></div></div>
-      </div>`;
-    }).join('');
-}
-
-function renderDash(){
-  const [ini, fim] = periodo();
-  const fl = leads.filter(l=>{
-    if(!l.created_at) return true;
-    const d = new Date(l.created_at);
-    return (!ini || d >= ini) && (!fim || d <= fim);
-  });
-  const total = fl.length;
-  const qual = fl.filter(l=>l.qualificado).length;
-  document.getElementById('k-total').textContent = total;
-  document.getElementById('k-total-extra').textContent = total ? 'no período filtrado' : 'nenhum lead no período';
-  document.getElementById('k-qual').textContent = qual;
-  document.getElementById('k-taxa').textContent = total ? Math.round(qual/total*100)+'%' : '0%';
-  document.getElementById('k-parc').textContent = total - qual;
-  document.getElementById('k-neg').textContent = fl.filter(l=>l.status==='Negociação').length;
-  const perd = fl.filter(l=>l.status==='Perdido').length;
-  document.getElementById('k-perd').textContent = perd;
-  document.getElementById('k-perd-extra').textContent = total ? Math.round(perd/total*100)+'% dos leads do período' : 'no período';
-
-  calcCPL(total, qual);
-  desenharChart(fl, ini, fim);
-  desenharFaixas(fl);
-  desenharCidades(fl);
-  desenharStatus(fl);
-  desenharMotivos(fl);
-  desenharVendedores(fl);
-  renderMeta();
-}
-
-function calcCPL(total, qual){
-  const v = Number(document.getElementById('invest').value) || 0;
-  document.getElementById('r-cpl').textContent  = (v>0 && total>0) ? brl(v/total) : '—';
-  document.getElementById('r-cplq').textContent = (v>0 && qual>0)  ? brl(v/qual)  : '—';
-}
-document.getElementById('invest').addEventListener('input', ()=>renderDash());
-
-function desenharChart(fl, ini, fim){
-  const el = document.getElementById('chart');
-  let d0 = ini, d1 = fim;
-  if(!d0){
-    if(!fl.length){ el.innerHTML = '<p class="vazio-msg" style="width:100%">Sem dados no período</p>'; return; }
-    d0 = new Date(Math.min(...fl.map(l=>+new Date(l.created_at||Date.now()))));
-    d1 = new Date(Math.max(...fl.map(l=>+new Date(l.created_at||Date.now()))));
-  }
-  const dias = [];
-  const cur = new Date(d0); cur.setHours(0,0,0,0);
-  while(cur <= d1 && dias.length < 31){ dias.push(new Date(cur)); cur.setDate(cur.getDate()+1); }
-  const chave = d => d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-  const porDia = {};
-  dias.forEach(d=>porDia[chave(d)]={t:0,q:0});
-  fl.forEach(l=>{
-    const k = chave(new Date(l.created_at||Date.now()));
-    if(porDia[k]){ porDia[k].t++; if(l.qualificado) porDia[k].q++; }
-  });
-  const max = Math.max(1, ...Object.values(porDia).map(o=>o.t));
-  el.innerHTML = dias.map(d=>{
-    const o = porDia[chave(d)];
-    const hT = Math.round(o.t/max*100), hQ = o.t ? Math.round(o.q/o.t*hT) : 0;
-    const lbl = d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
-    return `<div class="dia">
-      ${o.t?`<div class="num-top">${o.t}</div>`:''}
-      <div class="barras" title="${lbl}: ${o.t} leads, ${o.q} qualificados">
-        <div class="b-qual" style="height:${hQ}%"></div>
-        <div class="b-total" style="height:${Math.max(hT-hQ, o.t?2:0)}%"></div>
-      </div>
-      <div class="lbl">${lbl}</div>
-    </div>`;
-  }).join('');
-}
-
-function barraH(rotulo, qtd, total, cor){
-  const pct = total ? Math.round(qtd/total*100) : 0;
-  return `<div class="hbar">
-    <div class="topo"><span>${esc(rotulo)}</span><span class="v">${qtd} · ${pct}%</span></div>
-    <div class="trilho"><div style="width:${pct}%;background:${cor}"></div></div>
-  </div>`;
-}
-
-function desenharFaixas(fl){
-  const el = document.getElementById('faixas');
-  const com = fl.filter(l=>l.conta_luz);
-  if(!com.length){ el.innerHTML='<p class="vazio-msg">Sem dados</p>'; return; }
-  const cont = {};
-  com.forEach(l=>cont[l.conta_luz]=(cont[l.conta_luz]||0)+1);
-  el.innerHTML = Object.entries(cont).sort((a,b)=>b[1]-a[1])
-    .map(([f,q],i)=>barraH(f, q, com.length, CORES_FAIXA[i%CORES_FAIXA.length])).join('');
-}
-
-function desenharCidades(fl){
-  const el = document.getElementById('cidades');
-  const com = fl.filter(l=>l.cidade);
-  if(!com.length){ el.innerHTML='<p class="vazio-msg">Sem dados</p>'; return; }
-  const cont = {};
-  com.forEach(l=>{
-    const c = l.cidade.trim().toLowerCase().replace(/\b\w/g, m=>m.toUpperCase());
-    cont[c]=(cont[c]||0)+1;
-  });
-  el.innerHTML = Object.entries(cont).sort((a,b)=>b[1]-a[1]).slice(0,6)
-    .map(([c,q],i)=>barraH(c, q, com.length, CORES_FAIXA[i%CORES_FAIXA.length])).join('');
-}
-
-function desenharStatus(fl){
-  const el = document.getElementById('statusbars');
-  if(!fl.length){ el.innerHTML='<p class="vazio-msg">Sem dados</p>'; return; }
-  el.innerHTML = COLUNAS.map(c=>{
-    const q = fl.filter(l=>(l.status||'Novo lead')===c.nome).length;
-    return barraH(c.nome, q, fl.length, c.cor);
-  }).join('');
-}
-
-function desenharMotivos(fl){
-  const el = document.getElementById('motivos-dash');
-  const perdidos = fl.filter(l=>l.status==='Perdido' && l.motivo_perda);
-  if(!perdidos.length){ el.innerHTML='<p class="vazio-msg">Nenhuma perda registrada no período</p>'; return; }
-  const cont = {};
-  perdidos.forEach(l=>cont[l.motivo_perda]=(cont[l.motivo_perda]||0)+1);
-  el.innerHTML = Object.entries(cont).sort((a,b)=>b[1]-a[1])
-    .map(([m,q])=>barraH(m, q, perdidos.length, '#F87171')).join('');
-}
-
-if(sessionStorage.getItem('wm_crm_ok')==='1') carregar();
+const SUPABASE_URL='https://mztmbhrtsczdwxahxrdk.supabase.co';
+const SUPABASE_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im16dG1iaHJ0c2N6ZHd4YWh4cmRrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExODEzMzAsImV4cCI6MjA5Njc1NzMzMH0.X0JVNJ_4sKmL48gtM-rzYKtN6zf0Op-n5syfU7MXYEA';
+const SENHA_ACESSO='wm@adm2026';
+const COLUNAS=[{nome:'Novo lead',cor:'#F5C518'},{nome:'Em andamento',cor:'#E87B1E'},{nome:'Em contato',cor:'#1A6FA8'},{nome:'Qualificado Para Proposta',cor:'#A855F7'},{nome:'Negociação',cor:'#22C55E'},{nome:'Perdido',cor:'#F87171'}];
+const MOTIVOS_PERDA=['Preço / achou caro','Fechou com concorrente','Financiamento negado','Desistiu / vai adiar','Não responde / sem contato','Fora da área de atendimento'];
+const CORES_FAIXA=['#1A6FA8','#2E86C1','#F5C518','#E87B1E','#FF9A3D','#F87171'];
+const demo=!SUPABASE_URL;
+const H=()=>({'apikey':SUPABASE_ANON,'Authorization':'Bearer '+SUPABASE_ANON,'Content-Type':'application/json'});
+let leads=[],filtroDias=30,intervalo=null,filtroPipeDias=-1;
+function entrar(){if(document.getElementById('senha').value===SENHA_ACESSO){sessionStorage.setItem('wm_crm_ok','1');document.getElementById('login').style.display='none';carregar();}else document.getElementById('erro').style.display='block';}
+function sair(){sessionStorage.removeItem('wm_crm_ok');location.reload();}
+if(sessionStorage.getItem('wm_crm_ok')==='1')document.getElementById('login').style.display='none';
+function trocarAba(btn){document.querySelectorAll('.aba').forEach(a=>a.classList.remove('ativa'));btn.classList.add('ativa');document.querySelectorAll('.vista').forEach(v=>v.classList.remove('ativa'));document.getElementById('vista-'+btn.dataset.vista).classList.add('ativa');if(btn.dataset.vista==='vend')renderVendedores();}
+async function carregar(){if(demo){document.getElementById('tagDemo').style.display='inline-flex';leads=JSON.parse(localStorage.getItem('wm_leads')||'[]');}else{try{const r=await fetch(SUPABASE_URL+'/rest/v1/leads?select=*&order=created_at.desc',{headers:H()});leads=await r.json();if(!Array.isArray(leads))leads=[];}catch(e){leads=[];}}
+renderPipeline();renderDash();}
+async function excluirLead(id){const l=leads.find(x=>String(x.id)===String(id));const nome=l?.nome||'este lead';if(!confirm(`Excluir ${nome}?\n\nEssa ação não pode ser desfeita.`))return;if(demo){leads=leads.filter(x=>String(x.id)!==String(id));localStorage.setItem('wm_leads',JSON.stringify(leads));}else{try{await fetch(`${SUPABASE_URL}/rest/v1/leads?id=eq.${id}`,{method:'DELETE',headers:H()});leads=leads.filter(x=>String(x.id)!==String(id));}catch(e){alert('Erro ao excluir.');return;}}
+renderPipeline();renderDash();}
+async function mudarStatus(id,status){if(status==='Perdido'){abrirMotivo(id);return;}const l=leads.find(x=>String(x.id)===String(id));if(l)l.status=status;if(demo){localStorage.setItem('wm_leads',JSON.stringify(leads));}else{try{await fetch(`${SUPABASE_URL}/rest/v1/leads?id=eq.${id}`,{method:'PATCH',headers:H(),body:JSON.stringify({status})});}catch(e){}}
+renderPipeline();renderDash();}
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fone=w=>String(w??'').replace(/\D/g,'');
+const dataBr=d=>d?new Date(d).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}):'';
+const brl=n=>'R$ '+n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const VEND_KEY='wm_vendedores';
+function getVendedores(){try{return JSON.parse(localStorage.getItem(VEND_KEY)||'[]');}catch(e){return[];}}
+function saveVendedores(l){localStorage.setItem(VEND_KEY,JSON.stringify(l));}
+function adicionarVendedor(){const inp=document.getElementById('vend-input');const nome=inp.value.trim();if(!nome)return;const l=getVendedores();if(l.some(v=>v.toLowerCase()===nome.toLowerCase())){alert('Já cadastrado!');return;}l.push(nome);saveVendedores(l);inp.value='';renderVendedores();}
+function removerVendedor(nome){if(!confirm(`Remover "${nome}"?`))return;saveVendedores(getVendedores().filter(v=>v!==nome));renderVendedores();}
+function renderVendedores(){const l=getVendedores();const el=document.getElementById('vend-lista');if(!el)return;el.innerHTML=l.length?l.map(v=>`<div class="vend-item"><span>\ud83d\udc64 ${esc(v)}</span><button onclick="removerVendedor('${esc(v)}')">\u2715</button></div>`).join(''):'<p class="vend-empty">Nenhum vendedor cadastrado.</p>';}
+function montarOpcoesVendedor(atual){const l=getVendedores();const opts=['<option value="">— Sem vendedor —</option>'];l.forEach(v=>opts.push(`<option value="${esc(v)}"${v===atual?' selected':''}>${esc(v)}</option>`));if(atual&&!l.includes(atual))opts.push(`<option value="${esc(atual)}" selected>${esc(atual)} (não cadastrado)</option>`);return opts.join('');}
+function filtrarPipe(btn){document.querySelectorAll('.chip[data-pipe-dias]').forEach(b=>b.classList.remove('ativo'));btn.classList.add('ativo');filtroPipeDias=Number(btn.dataset.pipeDias);renderPipeline();}
+function leadsDoPipe(){if(filtroPipeDias===-1)return leads;const fim=new Date();fim.setHours(23,59,59,999);const ini=new Date();ini.setHours(0,0,0,0);if(filtroPipeDias>0)ini.setDate(ini.getDate()-(filtroPipeDias-1));return leads.filter(l=>{if(!l.created_at)return filtroPipeDias===0;const d=new Date(l.created_at);return d>=ini&&d<=fim;});}
+function exportarExcel(){const fl=leadsDoPipe();if(!fl.length){alert('Nenhum lead no filtro.');return;}const cols=['Nome','WhatsApp','Vendedor','Cidade','Conta de luz','Aparelhos','Pagamento','Prazo','Dia visita','Horário','Status','Motivo perda','Qualificado','Recebido em'];const rows=fl.map(l=>[l.nome||'',l.whatsapp||'',l.vendedor||'',l.cidade||'',l.conta_luz||'',l.aparelhos||'',l.forma_pagamento||'',l.prazo||'',l.dia_visita||'',l.periodo_visita||'',l.status||'',l.motivo_perda||'',l.qualificado?'Sim':'Não',l.created_at?new Date(l.created_at).toLocaleString('pt-BR'):'']);const e=v=>'"'+String(v).replace(/"/g,'""')+'"';const csv='\uFEFF'+[cols,...rows].map(r=>r.map(e).join(';')).join('\r\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'}));const lbl=filtroPipeDias===-1?'todos':filtroPipeDias===0?'hoje':filtroPipeDias+'dias';a.download=`leads_wm_${lbl}_${new Date().toLocaleDateString('pt-BR').replace(/\//g,'-')}.csv`;a.click();}
+function renderPipeline(){const board=document.getElementById('board');board.innerHTML='';const lv=leadsDoPipe();const info=document.getElementById('pipe-info');if(info)info.textContent=filtroPipeDias===-1?'':`${lv.length} lead${lv.length!==1?'s':''} no filtro`;COLUNAS.forEach(col=>{const itens=lv.filter(l=>(l.status||'Novo lead')===col.nome);const div=document.createElement('div');div.className='col';div.innerHTML=`<div class="col-head"><h3 style="color:${col.cor}">${col.nome}</h3><span class="contador" style="background:${col.cor}22;color:${col.cor}">${itens.length}</span></div>${itens.length===0?'<div class="vazio">Sem leads aqui</div>':itens.map(cardHTML).join('')}`;board.appendChild(div);});document.querySelectorAll('.lead').forEach(el=>{el.addEventListener('click',e=>{if(e.target.tagName!=='SELECT'&&e.target.tagName!=='A')abrirModal(el.dataset.id);});});document.querySelectorAll('.lead select').forEach(s=>{s.addEventListener('change',()=>mudarStatus(s.dataset.id,s.value));});document.querySelectorAll('.lead .excluir').forEach(b=>{b.addEventListener('click',e=>{e.stopPropagation();excluirLead(b.dataset.del);});});}
+function cardHTML(l){const linhas=[l.cidade?`📍 <b>${esc(l.cidade)}</b>`:'',l.conta_luz?`💡 <b>${esc(l.conta_luz)}</b>`:'',l.forma_pagamento?`🏦 ${esc(l.forma_pagamento)}`:'',l.prazo?`⏱ ${esc(l.prazo)}`:'',
+(l.dia_visita||l.periodo_visita)?`📅 Visita: ${esc(l.dia_visita||'')} ${esc(l.periodo_visita||'')}`:'',l.aparelhos?`⚡ ${esc(l.aparelhos)}`:'',
+(l.status==='Perdido'&&l.motivo_perda)?`<span style="color:var(--vermelho)">❌ ${esc(l.motivo_perda)}</span>`:'',
+l.vendedor?`👤 <b style="color:var(--ouro)">${esc(l.vendedor)}</b>`:''].filter(Boolean).join('<br>');return `<div class="lead" data-id="${esc(l.id)}"><button class="excluir" data-del="${esc(l.id)}">✕</button><h4>${esc(l.nome||'Sem nome')}</h4>${l.qualificado?'<span class="badge q">✅ Qualificado</span>':'<span class="badge p">⏳ Não finalizou</span>'}<div class="info">${l.whatsapp?`📱 <a href="https://wa.me/55${fone(l.whatsapp)}" target="_blank" style="color:#4ADE80;text-decoration:none">${esc(l.whatsapp)}</a><br>`:''}${linhas}</div><select data-id="${esc(l.id)}">${COLUNAS.map(c=>`<option ${(l.status||'Novo lead')===c.nome?'selected':''}>${c.nome}</option>`).join('')}</select><div class="data">${dataBr(l.created_at)}</div></div>`;}
+function abrirModal(id){const l=leads.find(x=>String(x.id)===String(id));if(!l)return;const campos=[['Nome',l.nome],['WhatsApp',l.whatsapp],['Vendedor',l.vendedor],['Conta de luz',l.conta_luz],['Aparelhos',l.aparelhos],['Cidade',l.cidade],['Pagamento',l.forma_pagamento],['Prazo',l.prazo],['Dia da visita',l.dia_visita],['Período',l.periodo_visita],['Status',l.status],['Motivo da perda',l.motivo_perda],['Qualificado',l.qualificado?'Sim':'Não'],['Recebido em',dataBr(l.created_at)]];document.getElementById('modal').innerHTML=`<button class="fechar" onclick="fecharModal()">✕</button><h2>${esc(l.nome||'Lead')}</h2><p class="mp">Detalhes completos do lead</p><div class="m-acoes"><a class="m-zap" href="https://wa.me/55${fone(l.whatsapp)}" target="_blank">💬 Abrir WhatsApp</a><button class="m-copiar" onclick="copiarTudo('${esc(l.id)}')">⧉ Copiar tudo</button><button class="m-copiar" onclick="excluirLead('${esc(l.id)}');fecharModal()" style="border-color:rgba(248,113,113,.4);color:var(--vermelho)">🗑️ Excluir</button></div><p class="m-label">Status</p><select onchange="mudarStatus('${esc(l.id)}',this.value);fecharModal()">${COLUNAS.map(c=>`<option ${(l.status||'Novo lead')===c.nome?'selected':''}>${c.nome}</option>`).join('')}</select><div class="v-wrap"><p class="m-label">Vendedor responsável</p><select class="v-select" id="v-select" onchange="salvarVendedor('${esc(l.id)}',this.value)">${montarOpcoesVendedor(l.vendedor)}</select><p class="v-salvo" id="v-salvo">✓ Salvo</p></div><div class="tabela">${campos.filter(c=>c[1]).map(c=>`<div class="linha"><span class="k">${c[0]}</span><span class="v">${esc(String(c[1]))}</span></div>`).join('')}</div>`;document.getElementById('overlay').style.display='flex';}
+function fecharModal(){document.getElementById('overlay').style.display='none';}
+let perdaId=null,motivoSel=null;
+function abrirMotivo(id){perdaId=id;motivoSel=null;fecharModal();document.getElementById('lista-motivos').innerHTML=MOTIVOS_PERDA.map(m=>`<button class="mot" data-m="${esc(m)}">${esc(m)}</button>`).join('')+'<button class="mot" data-outro="1">Outro motivo...</button>';document.getElementById('mot-outro').style.display='none';document.getElementById('mot-outro').value='';document.getElementById('mot-ok').disabled=true;document.querySelectorAll('#lista-motivos .mot').forEach(b=>{b.addEventListener('click',()=>{document.querySelectorAll('#lista-motivos .mot').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');const outro=document.getElementById('mot-outro');if(b.dataset.outro){outro.style.display='block';outro.focus();motivoSel=null;validarMotivo();}else{outro.style.display='none';motivoSel=b.dataset.m;document.getElementById('mot-ok').disabled=false;}});});document.getElementById('overlay-motivo').style.display='flex';}
+function validarMotivo(){document.getElementById('mot-ok').disabled=document.getElementById('mot-outro').value.trim().length<3;}
+document.getElementById('mot-outro').addEventListener('input',validarMotivo);
+function cancelarPerda(){document.getElementById('overlay-motivo').style.display='none';perdaId=null;renderPipeline();}
+async function confirmarPerda(){const motivo=motivoSel||document.getElementById('mot-outro').value.trim();if(!motivo||!perdaId)return;const l=leads.find(x=>String(x.id)===String(perdaId));if(l){l.status='Perdido';l.motivo_perda=motivo;}if(demo){localStorage.setItem('wm_leads',JSON.stringify(leads));}else{try{await fetch(`${SUPABASE_URL}/rest/v1/leads?id=eq.${perdaId}`,{method:'PATCH',headers:H(),body:JSON.stringify({status:'Perdido',motivo_perda:motivo})});}catch(e){}}
+document.getElementById('overlay-motivo').style.display='none';perdaId=null;renderPipeline();renderDash();}
+function copiarTudo(id){const l=leads.find(x=>String(x.id)===String(id));if(!l)return;navigator.clipboard.writeText(`Nome: ${l.nome||''}\nWhatsApp: ${l.whatsapp||''}\nVendedor: ${l.vendedor||''}\nConta de luz: ${l.conta_luz||''}\nAparelhos: ${l.aparelhos||''}\nCidade: ${l.cidade||''}\nPagamento: ${l.forma_pagamento||''}\nPrazo: ${l.prazo||''}\nVisita: ${l.dia_visita||''} ${l.periodo_visita||''}\nStatus: ${l.status||''}`);}
+function periodo(){if(intervalo)return intervalo;if(filtroDias===-1)return[null,null];const fim=new Date();fim.setHours(23,59,59,999);const ini=new Date();ini.setHours(0,0,0,0);if(filtroDias>0)ini.setDate(ini.getDate()-(filtroDias-1));return[ini,fim];}
+function aplicarPersonalizado(){const i=document.getElementById('d-ini').value,f=document.getElementById('d-fim').value;if(!i||!f)return;intervalo=[new Date(i+'T00:00:00'),new Date(f+'T23:59:59')];document.querySelectorAll('.chip[data-dias]').forEach(c=>c.classList.remove('ativo'));renderDash();}
+document.querySelectorAll('.chip[data-dias]').forEach(c=>{c.addEventListener('click',()=>{document.querySelectorAll('.chip[data-dias]').forEach(x=>x.classList.remove('ativo'));c.classList.add('ativo');filtroDias=Number(c.dataset.dias);intervalo=null;renderDash();});});
+let metaPreview=null;
+function abrirImport(){document.getElementById('overlay-import').style.display='flex';document.getElementById('csv-input').value='';document.getElementById('preview').className='preview';document.getElementById('preview').innerHTML='';document.getElementById('btn-importar').disabled=true;metaPreview=null;}
+function fecharImport(){document.getElementById('overlay-import').style.display='none';}
+document.getElementById('csv-input').addEventListener('change',e=>processarArquivo(e.target.files[0]));
+const dz=document.getElementById('dropzone');dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('drag');});dz.addEventListener('dragleave',()=>dz.classList.remove('drag'));dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('drag');if(e.dataTransfer.files.length)processarArquivo(e.dataTransfer.files[0]);});
+function parseCSV(texto){const linha1=texto.split('\n')[0];const sep=(linha1.match(/;/g)||[]).length>(linha1.match(/,/g)||[]).length?';':',';const linhas=texto.replace(/^\uFEFF/,'').split(/\r?\n/).filter(l=>l.trim());const parse=l=>{const r=[];let cur='';let dent=false;for(let i=0;i<l.length;i++){const c=l[i];if(c==='"'){if(dent&&l[i+1]==='"'){cur+='"';i++;}else dent=!dent;}else if(c===sep&&!dent){r.push(cur);cur='';}else cur+=c;}r.push(cur);return r;};const cab=parse(linhas[0]).map(s=>s.trim().toLowerCase());return linhas.slice(1).map(l=>{const v=parse(l);const o={};cab.forEach((k,i)=>o[k]=(v[i]||'').trim());return o;});}
+function numero(s){if(!s)return 0;let v=String(s).replace(/[^\d,.\-]/g,'').trim();if(v.includes(',')&&v.includes('.')){if(v.lastIndexOf(',')>v.lastIndexOf('.'))v=v.replace(/\./g,'').replace(',','.');else v=v.replace(/,/g,'');}else if(v.includes(','))v=v.replace(',','.');const n=parseFloat(v);return isNaN(n)?0:n;}
+const COLS={gasto:['valor usado (brl)','valor gasto (brl)','valor usado','valor gasto','amount spent (brl)','amount spent','spend'],impressoes:['impressões','impressoes','impressions'],cliques:['cliques (todos)','cliques','clicks (all)','clicks','link clicks'],data_ini:['início dos relatórios','inicio dos relatorios','reporting starts','date start','dia'],data_fim:['término dos relatórios','termino dos relatorios','reporting ends','date stop'],ctr:['ctr (todos)','ctr','ctr (all)'],cpc:['cpc (todos)','cpc','cpc (all)']};
+function acharCol(linha,possiveis){for(const p of possiveis)if(linha[p]!==undefined)return p;for(const p of possiveis){const k=Object.keys(linha).find(k=>k.replace(/[^a-z]/g,'').includes(p.replace(/[^a-z]/g,'')));if(k)return k;}return null;}
+function processarArquivo(file){if(!file)return;const prev=document.getElementById('preview');prev.className='preview ativo';prev.innerHTML='<p class="det">⏳ Lendo...</p>';const r=new FileReader();r.onload=()=>{try{const dados=parseCSV(r.result);if(!dados.length)throw new Error('CSV vazio');const am=dados[0];const cG=acharCol(am,COLS.gasto);if(!cG)throw new Error('Coluna de valor gasto não encontrada.');let gasto=0,imp=0,cli=0,dataIni=null,dataFim=null;const cI=acharCol(am,COLS.impressoes),cC=acharCol(am,COLS.cliques),cDi=acharCol(am,COLS.data_ini),cDf=acharCol(am,COLS.data_fim);dados.forEach(l=>{gasto+=numero(l[cG]);if(cI)imp+=numero(l[cI]);if(cC)cli+=numero(l[cC]);if(cDi&&l[cDi]){const d=parseData(l[cDi]);if(d&&(!dataIni||d<dataIni))dataIni=d;}if(cDf&&l[cDf]){const d=parseData(l[cDf]);if(d&&(!dataFim||d>dataFim))dataFim=d;}});metaPreview={gasto,impressoes:imp,cliques:cli,data_ini:dataIni?dataIni.toISOString():null,data_fim:dataFim?dataFim.toISOString():null,linhas:dados.length,importado_em:new Date().toISOString()};prev.innerHTML=`<p class="ok">✓ Lido com sucesso</p><div class="det"><b>${dados.length}</b> linhas<br>Investido: <b>${brl(gasto)}</b><br>${dataIni?`Período: <b>${dataIni.toLocaleDateString('pt-BR')} a ${(dataFim||dataIni).toLocaleDateString('pt-BR')}</b>`:'Período não detectado'}</div>`;document.getElementById('btn-importar').disabled=false;}catch(e){prev.innerHTML=`<p class="err">✗ Erro: ${e.message}</p>`;document.getElementById('btn-importar').disabled=true;}};r.readAsText(file,'UTF-8');}
+function parseData(s){if(!s)return null;const m1=s.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})$/);if(m1)return new Date(Number(m1[3]<100?2000+Number(m1[3]):m1[3]),Number(m1[2])-1,Number(m1[1]));const m2=s.match(/^(\d{4})-(\d{2})-(\d{2})/);if(m2)return new Date(Number(m2[1]),Number(m2[2])-1,Number(m2[3]));return null;}
+function confirmarImport(){if(!metaPreview)return;localStorage.setItem('wm_meta_dados',JSON.stringify(metaPreview));fecharImport();renderMeta();}
+function limparMeta(){if(!confirm('Remover dados do Meta?'))return;localStorage.removeItem('wm_meta_dados');renderMeta();}
+function renderMeta(){const raw=localStorage.getItem('wm_meta_dados');const box=document.getElementById('metabox');if(!raw){box.classList.remove('ativo');return;}const m=JSON.parse(raw);box.classList.add('ativo');let fl;if(m.data_ini&&m.data_fim){const di=new Date(m.data_ini),df=new Date(m.data_fim);df.setHours(23,59,59,999);fl=leads.filter(l=>{if(!l.created_at)return false;const d=new Date(l.created_at);return d>=di&&d<=df;});document.getElementById('meta-periodo').textContent=`${di.toLocaleDateString('pt-BR')} a ${df.toLocaleDateString('pt-BR')}`;}else{const[ini,fim]=periodo();fl=leads.filter(l=>{if(!l.created_at)return true;const d=new Date(l.created_at);return(!ini||d>=ini)&&(!fim||d<=fim);});document.getElementById('meta-periodo').textContent='(filtro do Dashboard)';}
+const total=fl.length,qual=fl.filter(l=>l.qualificado).length;
+document.getElementById('m-gasto').textContent=brl(m.gasto);document.getElementById('m-gasto-ext').textContent=`${m.linhas} linhas CSV`;
+document.getElementById('m-imp').textContent=m.impressoes?m.impressoes.toLocaleString('pt-BR'):'—';
+document.getElementById('m-cliques').textContent=m.cliques?m.cliques.toLocaleString('pt-BR'):'—';
+document.getElementById('m-ctr').textContent=(m.impressoes&&m.cliques)?(m.cliques/m.impressoes*100).toFixed(2)+'%':'—';
+document.getElementById('m-cpc').textContent=(m.cliques&&m.gasto)?brl(m.gasto/m.cliques):'—';
+document.getElementById('m-cpl').textContent=(total&&m.gasto)?brl(m.gasto/total):'—';
+document.getElementById('m-cplq').textContent=(qual&&m.gasto)?brl(m.gasto/qual):'—';
+document.getElementById('m-conv').textContent=(m.cliques&&total)?(total/m.cliques*100).toFixed(2)+'%':'—';}
+async function salvarVendedor(id,valor){const vendedor=valor.trim();const l=leads.find(x=>String(x.id)===String(id));if(l)l.vendedor=vendedor;const el=document.getElementById('v-salvo');if(el){el.style.display='block';setTimeout(()=>{if(el)el.style.display='none';},2000);}if(demo){localStorage.setItem('wm_leads',JSON.stringify(leads));}else{try{await fetch(`${SUPABASE_URL}/rest/v1/leads?id=eq.${id}`,{method:'PATCH',headers:H(),body:JSON.stringify({vendedor})});}catch(e){}}
+renderPipeline();renderDash();}
+function desenharVendedores(fl){const el=document.getElementById('vendedores-dash');const com=fl.filter(l=>l.vendedor&&l.vendedor.trim());if(!com.length){el.innerHTML='<p class="vazio-msg">Nenhum lead com vendedor atribuído</p>';return;}const cont={};com.forEach(l=>{const v=l.vendedor.trim();if(!cont[v])cont[v]={total:0,qualificados:0,negociacao:0};cont[v].total++;if(l.qualificado)cont[v].qualificados++;if(l.status==='Negociação')cont[v].negociacao++;});const max=Math.max(...Object.values(cont).map(v=>v.total));el.innerHTML=Object.entries(cont).sort((a,b)=>b[1].total-a[1].total).map(([nome,d])=>{const pct=Math.round(d.total/max*100);const conv=d.total?Math.round(d.qualificados/d.total*100):0;return`<div class="hbar"><div class="topo"><span>👤 <b style="color:#fff">${esc(nome)}</b></span><span class="v" style="display:flex;gap:14px;font-size:.75rem"><span style="color:var(--azul)">${d.total} leads</span><span style="color:var(--verde)">${d.qualificados} qualif.</span><span style="color:var(--roxo)">${d.negociacao} negoc.</span><span style="color:var(--ouro)">${conv}% conv.</span></span></div><div class="trilho"><div style="width:${pct}%;background:linear-gradient(90deg,var(--azul),var(--ouro))"></div></div></div>`;}).join('');}
+function renderDash(){const[ini,fim]=periodo();const fl=leads.filter(l=>{if(!l.created_at)return true;const d=new Date(l.created_at);return(!ini||d>=ini)&&(!fim||d<=fim);});const total=fl.length,qual=fl.filter(l=>l.qualificado).length;document.getElementById('k-total').textContent=total;document.getElementById('k-total-extra').textContent=total?'no período':'nenhum lead';document.getElementById('k-qual').textContent=qual;document.getElementById('k-taxa').textContent=total?Math.round(qual/total*100)+'%':'0%';document.getElementById('k-parc').textContent=total-qual;document.getElementById('k-neg').textContent=fl.filter(l=>l.status==='Negociação').length;const perd=fl.filter(l=>l.status==='Perdido').length;document.getElementById('k-perd').textContent=perd;document.getElementById('k-perd-extra').textContent=total?Math.round(perd/total*100)+'% dos leads':'no período';calcCPL(total,qual);desenharChart(fl,ini,fim);desenharFaixas(fl);desenharCidades(fl);desenharStatus(fl);desenharMotivos(fl);desenharVendedores(fl);renderMeta();}
+function calcCPL(total,qual){const v=Number(document.getElementById('invest').value)||0;document.getElementById('r-cpl').textContent=(v>0&&total>0)?brl(v/total):'—';document.getElementById('r-cplq').textContent=(v>0&&qual>0)?brl(v/qual):'—';}
+document.getElementById('invest').addEventListener('input',()=>renderDash());
+function desenharChart(fl,ini,fim){const el=document.getElementById('chart');let d0=ini,d1=fim;if(!d0){if(!fl.length){el.innerHTML='<p class="vazio-msg" style="width:100%">Sem dados</p>';return;}d0=new Date(Math.min(...fl.map(l=>+new Date(l.created_at||Date.now()))));d1=new Date(Math.max(...fl.map(l=>+new Date(l.created_at||Date.now()))));}const dias=[];const cur=new Date(d0);cur.setHours(0,0,0,0);while(cur<=d1&&dias.length<31){dias.push(new Date(cur));cur.setDate(cur.getDate()+1);}const chave=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');const porDia={};dias.forEach(d=>porDia[chave(d)]={t:0,q:0});fl.forEach(l=>{const k=chave(new Date(l.created_at||Date.now()));if(porDia[k]){porDia[k].t++;if(l.qualificado)porDia[k].q++;}});const max=Math.max(1,...Object.values(porDia).map(o=>o.t));el.innerHTML=dias.map(d=>{const o=porDia[chave(d)];const hT=Math.round(o.t/max*100),hQ=o.t?Math.round(o.q/o.t*hT):0;const lbl=d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});return`<div class="dia">${o.t?`<div class="num-top">${o.t}</div>`:''}<div class="barras"><div class="b-qual" style="height:${hQ}%"></div><div class="b-total" style="height:${Math.max(hT-hQ,o.t?2:0)}%"></div></div><div class="lbl">${lbl}</div></div>`;}).join('');}
+function barraH(rotulo,qtd,total,cor){const pct=total?Math.round(qtd/total*100):0;return`<div class="hbar"><div class="topo"><span>${esc(rotulo)}</span><span class="v">${qtd} · ${pct}%</span></div><div class="trilho"><div style="width:${pct}%;background:${cor}"></div></div></div>`;}
+function desenharFaixas(fl){const el=document.getElementById('faixas');const com=fl.filter(l=>l.conta_luz);if(!com.length){el.innerHTML='<p class="vazio-msg">Sem dados</p>';return;}const cont={};com.forEach(l=>cont[l.conta_luz]=(cont[l.conta_luz]||0)+1);el.innerHTML=Object.entries(cont).sort((a,b)=>b[1]-a[1]).map(([f,q],i)=>barraH(f,q,com.length,CORES_FAIXA[i%CORES_FAIXA.length])).join('');}
+function desenharCidades(fl){const el=document.getElementById('cidades');const com=fl.filter(l=>l.cidade);if(!com.length){el.innerHTML='<p class="vazio-msg">Sem dados</p>';return;}const cont={};com.forEach(l=>{const c=l.cidade.trim().toLowerCase().replace(/\b\w/g,m=>m.toUpperCase());cont[c]=(cont[c]||0)+1;});el.innerHTML=Object.entries(cont).sort((a,b)=>b[1]-a[1]).slice(0,6).map(([c,q],i)=>barraH(c,q,com.length,CORES_FAIXA[i%CORES_FAIXA.length])).join('');}
+function desenharStatus(fl){const el=document.getElementById('statusbars');if(!fl.length){el.innerHTML='<p class="vazio-msg">Sem dados</p>';return;}el.innerHTML=COLUNAS.map(c=>{const q=fl.filter(l=>(l.status||'Novo lead')===c.nome).length;return barraH(c.nome,q,fl.length,c.cor);}).join('');}
+function desenharMotivos(fl){const el=document.getElementById('motivos-dash');const perdidos=fl.filter(l=>l.status==='Perdido'&&l.motivo_perda);if(!perdidos.length){el.innerHTML='<p class="vazio-msg">Nenhuma perda registrada</p>';return;}const cont={};perdidos.forEach(l=>cont[l.motivo_perda]=(cont[l.motivo_perda]||0)+1);el.innerHTML=Object.entries(cont).sort((a,b)=>b[1]-a[1]).map(([m,q])=>barraH(m,q,perdidos.length,'#F87171')).join('');}
+if(sessionStorage.getItem('wm_crm_ok')==='1')carregar();
 </script>
 </body>
 </html>
