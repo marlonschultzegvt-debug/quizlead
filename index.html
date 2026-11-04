@@ -192,6 +192,8 @@ footer{padding:18px 0 26px;text-align:center;font-size:.78rem;color:#52677F}
   border-radius:99px;padding:17px
 }
 .encerrado .s2{font-size:1.7rem}
+/* Selo RA Verificada: espaço reservado (evita a tela pular quando o selo carrega) */
+.ra-selo{min-height:52px;margin:14px auto 0;display:flex;justify-content:center}
 </style>
 </head>
 <body>
@@ -226,6 +228,7 @@ footer{padding:18px 0 26px;text-align:center;font-size:.78rem;color:#52677F}
 
     <button class="btn-ouro feirao" onclick="iniciarQuiz()">GARANTIR MINHA CONDIÇÃO DE FEIRÃO →</button>
     <p class="selo">⭐ <b>+ de 3.000 projetos</b> instalados no Brasil</p>
+    <div id="ra-verified-seal" class="ra-selo" aria-label="Selo Reclame Aqui Verificada"></div>
 
     <div class="ofertas">
       <div class="oferta"><span class="ic">💰</span><div><b>Desconto no kit</b><small>Preço especial de feirão no sistema completo</small></div></div>
@@ -462,6 +465,21 @@ function tickFeirao() {
   });
   return true;
 }
+/* ---------- Selo Reclame Aqui: carrega só depois da página pronta (não afeta o carregamento) ---------- */
+function carregarSeloRA() {
+  if (document.getElementById('ra-embed-verified-seal')) return;
+  const sc = document.createElement('script');
+  sc.id = 'ra-embed-verified-seal';
+  sc.src = 'https://s3.amazonaws.com/raichu-beta/ra-verified/bundle.js';
+  sc.async = true;
+  sc.dataset.id = 'aTBEZFFuU1p1TWtJSUxiWTp3bS1lbmVyZ2lhLXNvbGFy';
+  sc.dataset.target = 'ra-verified-seal';
+  sc.dataset.model = 'horizontal_1';
+  document.getElementById('ra-verified-seal').appendChild(sc);
+}
+const agendarSeloRA = () => ('requestIdleCallback' in window) ? requestIdleCallback(carregarSeloRA, { timeout: 3000 }) : setTimeout(carregarSeloRA, 1500);
+if (document.readyState === 'complete') agendarSeloRA(); else window.addEventListener('load', agendarSeloRA);
+
 if (tickFeirao()) { const t = setInterval(() => { if (!tickFeirao()) clearInterval(t); }, 1000); }
 
 let onde = 'casa'; // 'feirao' | 'casa' | 'online'
