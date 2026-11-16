@@ -245,8 +245,20 @@ footer{padding:18px 0 26px;text-align:center;font-size:.78rem;color:#6B6B6B}
     <div class="prog-head"><span class="rotulo" id="prog-rotulo"></span><span class="num" id="prog-num"></span></div>
     <div class="progresso"><div id="barra"></div></div>
 
+    <!-- 0. O que procura (define a trilha: casa | usina | posto) — não vai para o Supabase -->
+    <div class="etapa" data-campo="tipo" data-extra="1" data-rotulo="Seu objetivo">
+      <p class="pergunta">O que você procura?</p>
+      <p class="dica">Escolha a opção que mais combina com você.</p>
+      <div class="opcoes">
+        <button class="op" data-trilha-escolha="casa"><span class="tile">☀️</span>Energia solar para casa ou empresa</button>
+        <button class="op" data-trilha-escolha="usina"><span class="tile">🏭</span>Usina solar de investimento</button>
+        <button class="op" data-trilha-escolha="posto"><span class="tile">⚡</span>Eletroposto como investimento</button>
+      </div>
+      <div class="botoes"><button class="voltar" onclick="voltar()">←</button></div>
+    </div>
+
     <!-- 1. Conta de luz -->
-    <div class="etapa" data-campo="conta_luz" data-rotulo="Conta de luz">
+    <div class="etapa" data-campo="conta_luz" data-trilha="casa" data-rotulo="Conta de luz">
       <p class="pergunta">Quanto vem na sua conta de luz por mês?</p>
       <p class="dica">Selecione a faixa mais próxima.</p>
       <div class="opcoes">
@@ -261,7 +273,7 @@ footer{padding:18px 0 26px;text-align:center;font-size:.78rem;color:#6B6B6B}
     </div>
 
     <!-- 2. Tela de impacto -->
-    <div class="etapa" data-campo="gasto" data-rotulo="Seu gasto hoje">
+    <div class="etapa" data-campo="gasto" data-trilha="casa" data-rotulo="Seu gasto hoje">
       <p class="pergunta">Veja o tamanho desse gasto</p>
       <p class="dica">É quanto sai do seu bolso todo mês.</p>
       <div class="gasto-card">
@@ -280,7 +292,7 @@ footer{padding:18px 0 26px;text-align:center;font-size:.78rem;color:#6B6B6B}
     </div>
 
     <!-- 3. Consumo futuro -->
-    <div class="etapa" data-campo="aparelhos" data-multi="1" data-rotulo="Consumo futuro">
+    <div class="etapa" data-campo="aparelhos" data-trilha="casa" data-multi="1" data-rotulo="Consumo futuro">
       <p class="pergunta">Vai aumentar seu consumo em breve?</p>
       <p class="dica">Se sim, já dimensionamos o sistema para isso.</p>
       <div class="opcoes">
@@ -292,6 +304,85 @@ footer{padding:18px 0 26px;text-align:center;font-size:.78rem;color:#6B6B6B}
       </div>
       <div class="outros-box" id="outros-box"><input type="text" id="in-outros" placeholder="Descreva aqui..."></div>
       <div class="botoes"><button class="voltar" onclick="voltar()">←</button><button class="btn-ouro" disabled onclick="avancar()">Continuar →</button></div>
+    </div>
+
+    <!-- USINA DE INVESTIMENTO (respostas vão compostas em conta_luz/aparelhos) -->
+    <div class="etapa" data-campo="usina_inv" data-trilha="usina" data-extra="1" data-rotulo="Investimento">
+      <p class="pergunta">Quanto pretende investir?</p>
+      <p class="dica">Uma faixa aproximada já ajuda a montar o estudo.</p>
+      <div class="opcoes">
+        <button class="op"><span class="tile">💰</span>Até R$ 100 mil</button>
+        <button class="op"><span class="tile">💰</span>R$ 100 a 300 mil</button>
+        <button class="op"><span class="tile">💰</span>R$ 300 mil a R$ 1 milhão</button>
+        <button class="op"><span class="tile">🔥</span>Acima de R$ 1 milhão</button>
+      </div>
+      <div class="botoes"><button class="voltar" onclick="voltar()">←</button></div>
+    </div>
+
+    <div class="etapa" data-campo="usina_terreno" data-trilha="usina" data-extra="1" data-rotulo="Terreno">
+      <p class="pergunta">Você já tem terreno para a usina?</p>
+      <div class="opcoes">
+        <button class="op"><span class="tile">🏞️</span>Sim, próprio</button>
+        <button class="op"><span class="tile">📝</span>Sim, arrendado ou alugado</button>
+        <button class="op"><span class="tile">🔍</span>Não, preciso de ajuda para encontrar</button>
+      </div>
+      <div class="botoes"><button class="voltar" onclick="voltar()">←</button></div>
+    </div>
+
+    <div class="etapa" data-campo="usina_objetivo" data-trilha="usina" data-extra="1" data-rotulo="Objetivo">
+      <p class="pergunta">Qual o objetivo da usina?</p>
+      <div class="opcoes">
+        <button class="op"><span class="tile">💵</span>Vender a energia (renda mensal)</button>
+        <button class="op"><span class="tile">🏢</span>Abater a conta das minhas empresas ou imóveis</button>
+        <button class="op"><span class="tile">🤔</span>Ainda não sei, quero orientação</button>
+      </div>
+      <div class="botoes"><button class="voltar" onclick="voltar()">←</button></div>
+    </div>
+
+    <!-- ELETROPOSTO COMO INVESTIMENTO (respostas vão compostas em conta_luz/aparelhos) -->
+    <div class="etapa" data-campo="posto_local" data-trilha="posto" data-extra="1" data-rotulo="Local">
+      <p class="pergunta">Onde quer instalar o eletroposto?</p>
+      <div class="opcoes">
+        <button class="op"><span class="tile">⛽</span>Posto de combustível</button>
+        <button class="op"><span class="tile">🛒</span>Comércio, shopping ou estacionamento</button>
+        <button class="op"><span class="tile">🛣️</span>Hotel ou restaurante de rodovia</button>
+        <button class="op"><span class="tile">🏢</span>Condomínio</button>
+        <button class="op"><span class="tile">🔍</span>Ainda não tenho o local</button>
+      </div>
+      <div class="botoes"><button class="voltar" onclick="voltar()">←</button></div>
+    </div>
+
+    <div class="etapa" data-campo="posto_carregador" data-trilha="posto" data-extra="1" data-rotulo="Carregador">
+      <p class="pergunta">Que tipo de carregador?</p>
+      <p class="dica">Se não souber, a gente orienta.</p>
+      <div class="opcoes">
+        <button class="op"><span class="tile">⚡</span>Rápido (DC) — rodovia e posto</button>
+        <button class="op"><span class="tile">🔌</span>Semirrápido (AC 7 a 22 kW)</button>
+        <button class="op"><span class="tile">🤔</span>Não sei, quero orientação</button>
+      </div>
+      <div class="botoes"><button class="voltar" onclick="voltar()">←</button></div>
+    </div>
+
+    <div class="etapa" data-campo="posto_inv" data-trilha="posto" data-extra="1" data-rotulo="Investimento">
+      <p class="pergunta">Quanto pretende investir?</p>
+      <p class="dica">Uma faixa aproximada já ajuda a montar o estudo.</p>
+      <div class="opcoes">
+        <button class="op"><span class="tile">💰</span>Até R$ 50 mil</button>
+        <button class="op"><span class="tile">💰</span>R$ 50 a 150 mil</button>
+        <button class="op"><span class="tile">💰</span>R$ 150 a 400 mil</button>
+        <button class="op"><span class="tile">🔥</span>Acima de R$ 400 mil</button>
+      </div>
+      <div class="botoes"><button class="voltar" onclick="voltar()">←</button></div>
+    </div>
+
+    <div class="etapa" data-campo="posto_solar" data-trilha="posto" data-extra="1" data-rotulo="Energia solar">
+      <p class="pergunta">Já tem energia solar no local?</p>
+      <div class="opcoes">
+        <button class="op"><span class="tile">☀️</span>Sim</button>
+        <button class="op"><span class="tile">🚫</span>Não</button>
+        <button class="op"><span class="tile">➕</span>Quero instalar junto</button>
+      </div>
+      <div class="botoes"><button class="voltar" onclick="voltar()">←</button></div>
     </div>
 
     <!-- 4. Nome -->
@@ -343,11 +434,11 @@ footer{padding:18px 0 26px;text-align:center;font-size:.78rem;color:#6B6B6B}
 
     <!-- 9. Como receber (Black Friday) — não é coluna no Supabase; vira sufixo em dia_visita -->
     <div class="etapa" data-campo="onde" data-rotulo="Atendimento">
-      <p class="pergunta">Como prefere receber sua condição de Black Friday?</p>
+      <p class="pergunta" id="perg-onde">Como prefere receber sua condição de Black Friday?</p>
       <p class="dica">Válida para propostas fechadas até 30/11.</p>
       <div class="opcoes">
-        <button class="op" data-onde="casa"><span class="tile">🏠</span>Visita técnica gratuita em casa</button>
-        <button class="op" data-onde="online"><span class="tile">💬</span>Receber a proposta pelo WhatsApp</button>
+        <button class="op" data-onde="casa" id="op-onde-casa"><span class="tile">🏠</span>Visita técnica gratuita em casa</button>
+        <button class="op" data-onde="online" id="op-onde-online"><span class="tile">💬</span>Receber a proposta pelo WhatsApp</button>
       </div>
       <div class="botoes"><button class="voltar" onclick="voltar()">←</button></div>
     </div>
@@ -449,6 +540,31 @@ if (document.readyState === 'complete') agendarSeloRA(); else window.addEventLis
 if (tickPromo()) { const t = setInterval(() => { if (!tickPromo()) clearInterval(t); }, 1000); }
 
 let onde = 'casa'; // 'casa' | 'online'
+let trilha = 'casa'; // 'casa' | 'usina' | 'posto'
+const extra = {};    // respostas de usina/eletroposto (não são colunas no Supabase)
+
+// Só as perguntas da trilha escolhida (as sem data-trilha valem para todas)
+const fluxo = () => etapas.filter(e => !e.dataset.trilha || e.dataset.trilha === trilha);
+
+function comporInvestimento() {
+  if (trilha === 'usina') {
+    lead.conta_luz = `🏭 Usina · ${extra.usina_inv || '-'}`;
+    lead.aparelhos = `USINA DE INVESTIMENTO · Terreno: ${extra.usina_terreno || '-'} · Objetivo: ${extra.usina_objetivo || '-'}`;
+  } else if (trilha === 'posto') {
+    lead.conta_luz = `⚡ Eletroposto · ${extra.posto_inv || '-'}`;
+    lead.aparelhos = `ELETROPOSTO · Local: ${extra.posto_local || '-'} · Carregador: ${extra.posto_carregador || '-'} · Solar no local: ${extra.posto_solar || '-'}`;
+  }
+}
+
+function configurarTrilha() {
+  const inv = trilha !== 'casa';
+  const opCasa = document.getElementById('op-onde-casa'), opOnline = document.getElementById('op-onde-online');
+  document.getElementById('perg-onde').textContent = inv ? 'Como prefere conversar com um especialista?' : 'Como prefere receber sua condição de Black Friday?';
+  opCasa.firstChild.textContent = inv ? '🤝' : '🏠';
+  opCasa.lastChild.textContent = inv ? 'Reunião presencial' : 'Visita técnica gratuita em casa';
+  opOnline.lastChild.textContent = inv ? 'Reunião online ou pelo WhatsApp' : 'Receber a proposta pelo WhatsApp';
+  document.getElementById('perg-dia').textContent = inv ? 'Melhor dia para a reunião?' : 'Melhor dia para a visita técnica gratuita?';
+}
 
 if (LOGO_URL) {
   document.getElementById('logoImg').src = LOGO_URL;
@@ -563,13 +679,14 @@ function iniciarQuiz() {
 }
 
 function mostrar(i) {
+  const f = fluxo();
   etapas.forEach(e => e.classList.remove('ativa'));
-  const et = etapas[i];
+  const et = f[i];
   et.classList.add('ativa');
   idx = i;
   document.getElementById('prog-rotulo').textContent = et.dataset.rotulo;
-  document.getElementById('prog-num').textContent = (i + 1) + '/' + etapas.length;
-  document.getElementById('barra').style.width = ((i + 1) / etapas.length * 100) + '%';
+  document.getElementById('prog-num').textContent = (i + 1) + '/' + f.length;
+  document.getElementById('barra').style.width = ((i + 1) / f.length * 100) + '%';
 
   if (et.dataset.campo === 'gasto') preencherGasto();
   if (et.dataset.campo === 'whatsapp' && lead.nome)
@@ -594,7 +711,7 @@ function voltar() {
 }
 
 async function avancar() {
-  const et = etapas[idx];
+  const et = fluxo()[idx];
   const campo = et.dataset.campo;
 
   if (campo === 'aparelhos') {
@@ -616,11 +733,21 @@ async function avancar() {
   // Black Friday: marca a origem dentro de dia_visita (aparece no CRM sem mudar o schema)
   if (campo === 'dia_visita') {
     const dia = rotuloOp(et.querySelector('.op.sel') || et.querySelector('.op'));
-    lead.dia_visita = `${dia} (em casa) · Black Friday`;
+    const como = trilha === 'casa' ? 'em casa' : (onde === 'online' ? 'reunião online' : 'reunião presencial');
+    lead.dia_visita = `${dia} (${como}) · Black Friday`;
+  }
+
+  // Perguntas de trilha/investimento: não são colunas; compõem conta_luz e aparelhos
+  if (et.dataset.extra) {
+    if (trilha !== 'casa') {
+      comporInvestimento();
+      if (leadId) atualizarLead({ conta_luz: lead.conta_luz, aparelhos: lead.aparelhos });
+    }
+    return mostrar(idx + 1);
   }
 
   if (campo === 'onde') {
-    if (onde === 'online') {
+    if (onde === 'online' && trilha === 'casa') {
       lead.dia_visita = '💬 Proposta online (WhatsApp) · Black Friday';
       if (leadId) atualizarLead({ dia_visita: lead.dia_visita });
       return finalizar();
@@ -628,7 +755,7 @@ async function avancar() {
   } else if (campo === 'whatsapp') await criarLead({ ...lead });
   else if (leadId && campo !== 'gasto') atualizarLead({ [campo]: lead[campo] });
 
-  if (idx < etapas.length - 1) mostrar(idx + 1);
+  if (idx < fluxo().length - 1) mostrar(idx + 1);
   else finalizar();
 }
 
@@ -646,13 +773,16 @@ async function finalizar() {
   document.getElementById('quiz').style.display = 'none';
   document.getElementById('final').style.display = 'flex';
   document.getElementById('final-titulo').textContent = lead.nome ? `Recebido, ${lead.nome.split(' ')[0]}.` : 'Recebido!';
-  if (onde === 'online') {
+  const inv = trilha !== 'casa';
+  if (inv) {
+    document.getElementById('final-msg').innerHTML = 'Em até <b style="color:#fff">12h</b> um especialista entra em contato para confirmar a reunião e apresentar o estudo de investimento com as <b style="color:var(--ouro)">condições da Black Friday</b>.';
+  } else if (onde === 'online') {
     document.getElementById('final-msg').innerHTML = 'Em até <b style="color:#fff">12h</b> um consultor te envia pelo WhatsApp sua proposta com as <b style="color:var(--ouro)">condições da Black Friday</b>.';
   }
 
   const linhas = [
-    ['Conta mensal', lead.conta_luz],
-    ['Aumento de consumo', lead.aparelhos],
+    [inv ? 'Interesse' : 'Conta mensal', lead.conta_luz],
+    [inv ? 'Detalhes' : 'Aumento de consumo', lead.aparelhos],
     ['Nome', lead.nome],
     ['Telefone', lead.whatsapp],
     ['Cidade', lead.cidade],
@@ -670,15 +800,16 @@ async function finalizar() {
     `👤 *Nome:* ${lead.nome || '-'}`,
     `📱 *WhatsApp:* ${lead.whatsapp || '-'}`,
     `🏙️ *Cidade:* ${lead.cidade || '-'}`,
-    `⚡ *Conta mensal:* ${lead.conta_luz || '-'}`,
-    `🔌 *Aumento de consumo:* ${lead.aparelhos || '-'}`,
+    `⚡ *${inv ? 'Interesse' : 'Conta mensal'}:* ${lead.conta_luz || '-'}`,
+    `🔌 *${inv ? 'Detalhes' : 'Aumento de consumo'}:* ${lead.aparelhos || '-'}`,
     `💳 *Pagamento:* ${lead.forma_pagamento || '-'}`,
     `📅 *Prazo:* ${lead.prazo || '-'}`,
     `🏷️ *Atendimento:* ${lead.onde || '-'}`,
     `🗓️ *Melhor dia:* ${lead.dia_visita || '-'}`,
     `🕐 *Melhor horário:* ${lead.periodo_visita || '-'}`,
   ].join('\n');
-  const msg = encodeURIComponent(`Olá! Vim pela *Black Friday WM* e quero garantir minha condição. Seguem meus dados:\n\n${linhasMsg}`);
+  const assunto = trilha === 'usina' ? ' e tenho interesse em *usina solar de investimento*' : trilha === 'posto' ? ' e tenho interesse em *eletroposto como investimento*' : '';
+  const msg = encodeURIComponent(`Olá! Vim pela *Black Friday WM*${assunto} e quero garantir minha condição. Seguem meus dados:\n\n${linhasMsg}`);
   document.getElementById('link-zap').href = `https://wa.me/${WHATSAPP_WM}?text=${msg}`;
 }
 
@@ -738,7 +869,9 @@ etapas.forEach(et => {
       } else {
         et.querySelectorAll('.op').forEach(o => o.classList.remove('sel'));
         op.classList.add('sel');
-        lead[et.dataset.campo] = rotuloOp(op);
+        if (et.dataset.extra) extra[et.dataset.campo] = rotuloOp(op);
+        else lead[et.dataset.campo] = rotuloOp(op);
+        if (et.dataset.campo === 'tipo') { trilha = op.dataset.trilhaEscolha; configurarTrilha(); }
         if (et.dataset.campo === 'conta_luz') mediaConta = Number(op.dataset.media) || 0;
         if (et.dataset.campo === 'onde') onde = op.dataset.onde;
         setTimeout(avancar, 220);
