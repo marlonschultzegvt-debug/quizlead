@@ -251,6 +251,7 @@ footer{padding:18px 0 26px;text-align:center;font-size:.78rem;color:#6B6B6B}
       <p class="dica">Escolha a opção que mais combina com você.</p>
       <div class="opcoes">
         <button class="op" data-trilha-escolha="casa"><span class="tile">☀️</span>Energia solar para casa ou empresa</button>
+        <button class="op" data-trilha-escolha="hibrido"><span class="tile">🔋</span>Sistema com bateria (híbrido)</button>
         <button class="op" data-trilha-escolha="usina"><span class="tile">🏭</span>Usina solar de investimento</button>
         <button class="op" data-trilha-escolha="posto"><span class="tile">⚡</span>Eletroposto como investimento</button>
       </div>
@@ -304,6 +305,51 @@ footer{padding:18px 0 26px;text-align:center;font-size:.78rem;color:#6B6B6B}
       </div>
       <div class="outros-box" id="outros-box"><input type="text" id="in-outros" placeholder="Descreva aqui..."></div>
       <div class="botoes"><button class="voltar" onclick="voltar()">←</button><button class="btn-ouro" disabled onclick="avancar()">Continuar →</button></div>
+    </div>
+
+    <!-- SISTEMA COM BATERIA / HÍBRIDO (respostas vão compostas em conta_luz/aparelhos) -->
+    <div class="etapa" data-campo="hib_motivo" data-trilha="hibrido" data-extra="1" data-rotulo="Bateria">
+      <p class="pergunta">Por que você quer bateria?</p>
+      <div class="opcoes">
+        <button class="op"><span class="tile">⚡</span>Quedas de energia frequentes</button>
+        <button class="op"><span class="tile">🌙</span>Usar a energia solar à noite</button>
+        <button class="op"><span class="tile">🛡️</span>Proteger equipamentos ou o meu negócio</button>
+        <button class="op"><span class="tile">🔌</span>Ficar independente da rede (off-grid)</button>
+      </div>
+      <div class="botoes"><button class="voltar" onclick="voltar()">←</button></div>
+    </div>
+
+    <div class="etapa" data-campo="hib_tem_solar" data-trilha="hibrido" data-extra="1" data-rotulo="Energia solar">
+      <p class="pergunta">Você já tem energia solar?</p>
+      <div class="opcoes">
+        <button class="op"><span class="tile">☀️</span>Sim, quero adicionar bateria</button>
+        <button class="op"><span class="tile">🆕</span>Não, quero o sistema completo</button>
+      </div>
+      <div class="botoes"><button class="voltar" onclick="voltar()">←</button></div>
+    </div>
+
+    <div class="etapa" data-campo="hib_conta" data-trilha="hibrido" data-extra="1" data-rotulo="Conta de luz">
+      <p class="pergunta">Quanto vem na sua conta de luz por mês?</p>
+      <p class="dica">Selecione a faixa mais próxima.</p>
+      <div class="opcoes">
+        <button class="op"><span class="tile">⚡</span>R$ 400 a R$ 500</button>
+        <button class="op"><span class="tile">⚡</span>R$ 500 a R$ 600</button>
+        <button class="op"><span class="tile">⚡</span>R$ 600 a R$ 900</button>
+        <button class="op"><span class="tile">⚡</span>R$ 900 a R$ 1.500</button>
+        <button class="op"><span class="tile">⚡</span>R$ 1.500 a R$ 2.000</button>
+        <button class="op"><span class="tile">🔥</span>Acima de R$ 2.000</button>
+      </div>
+      <div class="botoes"><button class="voltar" onclick="voltar()">←</button></div>
+    </div>
+
+    <div class="etapa" data-campo="hib_backup" data-trilha="hibrido" data-extra="1" data-rotulo="Sem energia">
+      <p class="pergunta">O que precisa ficar ligado quando faltar energia?</p>
+      <div class="opcoes">
+        <button class="op"><span class="tile">🧊</span>Só o essencial (geladeira, luz, internet)</button>
+        <button class="op"><span class="tile">🏠</span>Boa parte da casa ou empresa</button>
+        <button class="op"><span class="tile">❄️</span>Tudo, inclusive ar-condicionado</button>
+      </div>
+      <div class="botoes"><button class="voltar" onclick="voltar()">←</button></div>
     </div>
 
     <!-- USINA DE INVESTIMENTO (respostas vão compostas em conta_luz/aparelhos) -->
@@ -540,14 +586,17 @@ if (document.readyState === 'complete') agendarSeloRA(); else window.addEventLis
 if (tickPromo()) { const t = setInterval(() => { if (!tickPromo()) clearInterval(t); }, 1000); }
 
 let onde = 'casa'; // 'casa' | 'online'
-let trilha = 'casa'; // 'casa' | 'usina' | 'posto'
+let trilha = 'casa'; // 'casa' | 'hibrido' | 'usina' | 'posto'
 const extra = {};    // respostas de usina/eletroposto (não são colunas no Supabase)
 
 // Só as perguntas da trilha escolhida (as sem data-trilha valem para todas)
 const fluxo = () => etapas.filter(e => !e.dataset.trilha || e.dataset.trilha === trilha);
 
 function comporInvestimento() {
-  if (trilha === 'usina') {
+  if (trilha === 'hibrido') {
+    lead.conta_luz = `🔋 Híbrido · ${extra.hib_conta || '-'}`;
+    lead.aparelhos = `SISTEMA COM BATERIA · Motivo: ${extra.hib_motivo || '-'} · Já tem solar: ${extra.hib_tem_solar || '-'} · Manter ligado: ${extra.hib_backup || '-'}`;
+  } else if (trilha === 'usina') {
     lead.conta_luz = `🏭 Usina · ${extra.usina_inv || '-'}`;
     lead.aparelhos = `USINA DE INVESTIMENTO · Terreno: ${extra.usina_terreno || '-'} · Objetivo: ${extra.usina_objetivo || '-'}`;
   } else if (trilha === 'posto') {
@@ -557,7 +606,7 @@ function comporInvestimento() {
 }
 
 function configurarTrilha() {
-  const inv = trilha !== 'casa';
+  const inv = trilha === 'usina' || trilha === 'posto'; // investidor = reunião; híbrido segue como casa
   const opCasa = document.getElementById('op-onde-casa'), opOnline = document.getElementById('op-onde-online');
   document.getElementById('perg-onde').textContent = inv ? 'Como prefere conversar com um especialista?' : 'Como prefere receber sua condição de Black Friday?';
   opCasa.firstChild.textContent = inv ? '🤝' : '🏠';
@@ -733,7 +782,7 @@ async function avancar() {
   // Black Friday: marca a origem dentro de dia_visita (aparece no CRM sem mudar o schema)
   if (campo === 'dia_visita') {
     const dia = rotuloOp(et.querySelector('.op.sel') || et.querySelector('.op'));
-    const como = trilha === 'casa' ? 'em casa' : (onde === 'online' ? 'reunião online' : 'reunião presencial');
+    const como = (trilha === 'casa' || trilha === 'hibrido') ? 'em casa' : (onde === 'online' ? 'reunião online' : 'reunião presencial');
     lead.dia_visita = `${dia} (${como}) · Black Friday`;
   }
 
@@ -747,7 +796,7 @@ async function avancar() {
   }
 
   if (campo === 'onde') {
-    if (onde === 'online' && trilha === 'casa') {
+    if (onde === 'online' && (trilha === 'casa' || trilha === 'hibrido')) {
       lead.dia_visita = '💬 Proposta online (WhatsApp) · Black Friday';
       if (leadId) atualizarLead({ dia_visita: lead.dia_visita });
       return finalizar();
@@ -773,8 +822,8 @@ async function finalizar() {
   document.getElementById('quiz').style.display = 'none';
   document.getElementById('final').style.display = 'flex';
   document.getElementById('final-titulo').textContent = lead.nome ? `Recebido, ${lead.nome.split(' ')[0]}.` : 'Recebido!';
-  const inv = trilha !== 'casa';
-  if (inv) {
+  const inv = trilha !== 'casa'; // rótulos Interesse/Detalhes
+  if (trilha === 'usina' || trilha === 'posto') {
     document.getElementById('final-msg').innerHTML = 'Em até <b style="color:#fff">12h</b> um especialista entra em contato para confirmar a reunião e apresentar o estudo de investimento com as <b style="color:var(--ouro)">condições da Black Friday</b>.';
   } else if (onde === 'online') {
     document.getElementById('final-msg').innerHTML = 'Em até <b style="color:#fff">12h</b> um consultor te envia pelo WhatsApp sua proposta com as <b style="color:var(--ouro)">condições da Black Friday</b>.';
@@ -808,7 +857,7 @@ async function finalizar() {
     `🗓️ *Melhor dia:* ${lead.dia_visita || '-'}`,
     `🕐 *Melhor horário:* ${lead.periodo_visita || '-'}`,
   ].join('\n');
-  const assunto = trilha === 'usina' ? ' e tenho interesse em *usina solar de investimento*' : trilha === 'posto' ? ' e tenho interesse em *eletroposto como investimento*' : '';
+  const assunto = trilha === 'hibrido' ? ' e tenho interesse em *sistema com bateria (híbrido)*' : trilha === 'usina' ? ' e tenho interesse em *usina solar de investimento*' : trilha === 'posto' ? ' e tenho interesse em *eletroposto como investimento*' : '';
   const msg = encodeURIComponent(`Olá! Vim pela *Black Friday WM*${assunto} e quero garantir minha condição. Seguem meus dados:\n\n${linhasMsg}`);
   document.getElementById('link-zap').href = `https://wa.me/${WHATSAPP_WM}?text=${msg}`;
 }
